@@ -1,7 +1,7 @@
 
 public class Account {
-	EmailBox inbox;
-	EmailBox sent;
-	TrashBox trash;
+	private EmailBox inbox;
+	private EmailBox sent;
+	private TrashBox trash;
 	
 }

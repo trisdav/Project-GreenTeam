@@ -1,7 +1,7 @@
 
 public class EmailUser {
 	
-	EmailUser userList;
+	private EmailUser userList;
 
 	public void addLocalAccount() {
 		
