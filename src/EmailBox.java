@@ -1,4 +1,8 @@
-
+/**
+ * Skeleton class for EmailBox.java
+ * @author Tristan Davis
+ *
+ */
 public class EmailBox {
 
 	private Email emailList;

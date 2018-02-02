@@ -1,4 +1,8 @@
-
+/**
+ * Skeleton class for SimpleEmailSystem.java
+ * @author Tristan Davis
+ *
+ */
 public class SimpleEmailSystem {
 	
 	public boolean deleteUser() {

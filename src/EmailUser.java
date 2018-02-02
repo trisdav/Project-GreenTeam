@@ -1,4 +1,8 @@
-
+/**
+ * Skeleton class for EmailUser.java
+ * @author Tristan Davis
+ *
+ */
 public class EmailUser {
 	
 	private EmailUser userList;
