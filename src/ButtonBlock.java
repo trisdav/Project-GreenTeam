@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * 
+ * This is a functional block that contains 4 buttons, "Send", "Reply", "Compose", and "Trash"
  * @author Lydia McGovern
  *
  */
