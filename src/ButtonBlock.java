@@ -57,8 +57,7 @@ public class ButtonBlock {
 		compose.addActionListener(listener);
 		send.addActionListener(listener);
 		reply.addActionListener(listener);
-		trash.addActionListener(listener);
-		
+		trash.addActionListener(listener);	
 		
 	    block.add(compose);
 	    block.add(send);
