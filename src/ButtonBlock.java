@@ -9,10 +9,6 @@ import javax.swing.*;
  */
 public class ButtonBlock {
 	private JPanel block;
-	private JButton compose;
-	private JButton send;
-	private JButton reply;
-	private JButton trash;
 	private action a;
 
 /**
@@ -21,10 +17,10 @@ public class ButtonBlock {
  */
 	public ButtonBlock() {
 		block = new JPanel();
-		compose = new JButton("Compose");
-		send = new JButton("Send");
-		reply = new JButton("Reply");
-		trash = new JButton("Trash");
+		JButton compose = new JButton("Compose");
+		JButton send = new JButton("Send");
+		JButton reply = new JButton("Reply");
+		JButton trash = new JButton("Trash");
 		a = null;
 	    
 		ActionListener listener = new ActionListener() {
