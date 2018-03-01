@@ -1,3 +1,4 @@
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
@@ -13,20 +14,14 @@ import java.awt.event.ActionListener;
 
 
 public class View implements ActionListener {
-	Controller control;
+	private Controller control;
 	View(Controller c) {
 		control = c;
 		//Create the frame
 		JFrame mainFrame = new JFrame();
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setSize(800, 615);
-		//mainFrame.add(emailDisplay) etc
-		DropDownMenu ddm = new DropDownMenu();
-		//ddm.addEventListener();
-		mainFrame.add(ddm, BorderLayout.WEST);
-		mainFrame.setVisible(true);
-		ddm.addUser("Tristan Davis"); //For testing purposes
-		
+		mainFrame.setVisible(true);		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
