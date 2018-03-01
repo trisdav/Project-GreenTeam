@@ -7,46 +7,48 @@ import javax.swing.*;
  * @author Lydia McGovern
  *
  */
-public class ButtonBlock {
-	private JPanel block;
-	private action a;
+public class ButtonBlock extends JPanel { //This needs to be a subclass of JPanel
+	//private JPanel block;
+	//private action a;
 
 /**
  * Constructs a ButtonBlock object with 4 buttons
  * TO DO: Fix notify so that the action is redirected to GUI
  */
-	public ButtonBlock() {
-		block = new JPanel();
+
+	//public ButtonBlock() {
+	ButtonBlock(View v) { //This should be a constructor
+		//block = new JPanel();
 		JButton compose = new JButton("Compose");
 		JButton send = new JButton("Send");
 		JButton reply = new JButton("Reply");
 		JButton trash = new JButton("Trash");
-		a = null;
-	    
+		//a = null;
+	    /*
 		ActionListener listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				action tempAction;
+				//action tempAction;
 				switch (e.getActionCommand()) {
 				case "Compose":
-					tempAction = action.COMPOSE;
+					//tempAction = action.COMPOSE;
 					break;
 				case "Send":
-					tempAction = action.SEND;
+					//tempAction = action.SEND;
 					break;
 				case "Reply":
-					tempAction = action.REPLY;
+					//tempAction = action.REPLY;
 					break;
 				case "Trash":
-					tempAction = action.TRASH;
+					//tempAction = action.TRASH;
 				default:
-					tempAction = null;
+					//tempAction = null;
 					break;
 				}
 				
-				setAction(tempAction);
+				//setAction(tempAction);
 // Notify the GUI of the action, then reset a to null				
 				notify();
-				a = null;
+				//a = null;
 			}
 		};
 		
@@ -54,18 +56,30 @@ public class ButtonBlock {
 		send.addActionListener(listener);
 		reply.addActionListener(listener);
 		trash.addActionListener(listener);	
-		
+
 	    block.add(compose);
 	    block.add(send);
 	    block.add(reply);
 	    block.add(trash);
+	    */
+		compose.addActionListener(v);
+		send.addActionListener(v);
+		reply.addActionListener(v);
+		trash.addActionListener(v);
+		
+		//This class is a JPanel
+	    this.add(compose);
+	    this.add(send);
+	    this.add(reply);
+	    this.add(trash);
 	}
-	
+	/*
 	public JPanel getButtonBlock() {
 		return block;
 	}
-	
+	/*
 	private void setAction(action newAction) {
 		a = newAction;
 	}
+	*/
 }
