@@ -4,22 +4,35 @@ import javax.swing.*;
  * @author Lydia McGovern
  *
  */
-public class UserAndAccountControl {
-	private JPanel block;
+public class UserAndAccountControl extends JPanel {
 	
-	UserAndAccountControl() {
-		block = new JPanel();
-		JMenuBar menu = new JMenuBar();
-		
-		UserAndAccountControlMenu usersMenu = new UserAndAccountControlMenu("User");
-		UserAndAccountControlMenu accountsMenu = new UserAndAccountControlMenu("Account");
-		
-		menu.add(usersMenu.getMenu());
-		menu.add(accountsMenu.getMenu());
-		block.add(menu);
-	}
-	
-	public JPanel getUserAndAccountControl() {
-		return block;
+/**
+ * Constructor class to create the menu
+ * @param v the View object, or GUI, that contains this class
+ */
+	UserAndAccountControl(View v) {
+// Create a menu bar with two menus
+		JMenuBar menu = new JMenuBar();	
+		JMenu usersMenu = new JMenu("Users");
+		JMenu accountsMenu = new JMenu("Accounts");
+// Create four menu items and add action listeners to them
+		JMenuItem addUser = new JMenuItem("Add User");
+		JMenuItem deleteUser = new JMenuItem("Delete User");
+		JMenuItem addAccount = new JMenuItem("Add Account");
+		JMenuItem deleteAccount = new JMenuItem("Delete Account");
+		addUser.addActionListener(v);
+		deleteUser.addActionListener(v);
+		addAccount.addActionListener(v);
+		deleteAccount.addActionListener(v);
+//add the menu items to the appropriate menus
+		usersMenu.add(addUser);
+		usersMenu.add(deleteUser);
+		accountsMenu.add(addAccount);
+		accountsMenu.add(deleteAccount);		
+// Add the menus to the menu bar
+		menu.add(usersMenu);
+		menu.add(accountsMenu);
+// Add the menu bar to this panel
+		this.add(menu);
 	}
 }
