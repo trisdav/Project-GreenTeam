@@ -16,6 +16,7 @@ public class View implements ActionListener {
 	private DropDownMenu ddm;
 	private ButtonBlock bb;
 	private UserAndAccountControl ua; // LM
+	private EmailBlock eb;
 	
 /**
  * Constructs a GUI for the Simple Email System with four functional blocks
@@ -30,14 +31,21 @@ public class View implements ActionListener {
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setSize(800, 615);
 		mainFrame.setLayout(layout);
+		JPanel temp = new JPanel();
 		//Create a preferred dimension for ddm
 		Dimension ddmDim = new Dimension( 200,550 );
 		ddm = new DropDownMenu(ddmDim);
 		bb = new ButtonBlock(this);
 		ua = new UserAndAccountControl(this); // LM
+		eb = new EmailBlock();
+		temp.add(bb, BorderLayout.NORTH);
+		temp.add(eb, BorderLayout.CENTER);
 		mainFrame.add(ddm, layout.WEST); // LM
-		mainFrame.add(bb, BorderLayout.EAST); // LM
+//		mainFrame.add(bb, BorderLayout.EAST); // LM
 		mainFrame.add(ua, layout.NORTH); // LM
+//		mainFrame.add(eb, BorderLayout.CENTER);
+		mainFrame.add(temp, BorderLayout.CENTER);
+		eb.hideComponents();
 		mainFrame.setVisible(true);		
 	}
 	@Override
@@ -48,6 +56,7 @@ public class View implements ActionListener {
 		switch (e.getActionCommand()) {
 		case "Add User":
 			String newUsername = JOptionPane.showInputDialog("Enter the username: ");
+			ddm.addUser(newUsername);
 			break;
 		case "Delete User":
 		    if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete <username>?",
@@ -65,10 +74,15 @@ public class View implements ActionListener {
 			 }
 			 break;
 		case "Compose":
+			eb.showComponents();
+			break;
 		case "Send":
+			eb.hideComponents();
+			break;
 		case "Reply":
 		case "Trash":
 		default:
+			eb.hideComponents();
 			System.out.println(e.getActionCommand());
 			break;
 			
