@@ -7,16 +7,16 @@ import javax.swing.JOptionPane;
  */
 public class Controller {
 	private View GUI;
-	private SimpleEmailSystem ses;
+	private Model simpleEmailSystem;
 	
 /**
  * Construct a controller for the MVC Simple Email System model
  * @param v the View object, or GUI
  * @param m the Model, Simple Email System
  */
-	Controller(View v, SimpleEmailSystem m) {
+	Controller(View v, Model m) {
 		GUI = v;
-		ses = m;
+		simpleEmailSystem = m;
 	}
 
 /**
@@ -27,7 +27,8 @@ public class Controller {
 		switch (action) {
 		case "ADD_USER":
 			String newUsername = JOptionPane.showInputDialog("Enter the username: ");
-			GUI.addUser(newUsername);
+			if (newUsername != null)
+				GUI.addUser(newUsername);
 			break;
 		case "DELETE_USER":
 			if (GUI.getSelection() != null && GUI.getPathLength() == 2) {
@@ -43,7 +44,8 @@ public class Controller {
 		case "ADD_ACCOUNT":
 			if (GUI.getSelection() != null && GUI.getPathLength() == 3) {
 				String newAccountName = JOptionPane.showInputDialog("Enter the account name: ");
-				GUI.addAccount(newAccountName);
+				if (newAccountName != null)
+					GUI.addAccount(newAccountName);
 			}
 			break;
 		case "DELETE_ACCOUNT":
@@ -65,14 +67,18 @@ public class Controller {
 		case "SEND":
 			String emailTitle = GUI.getEmailTitle();
 			String emailRecipient = GUI.getEmailRecipient();
+			System.out.println(emailRecipient);
 			String emailSender = GUI.getComposer();
 			GUI.addEmail(emailRecipient, emailTitle, 0);
 			GUI.addEmail(emailSender, emailTitle, 1);
 			GUI.hideEmailView();
+			GUI.resetEmailForm();
 			break;
 		case "REPLY":
 			break;
 		case "TRASH":
+			break;
+		case "READ_EMAIL":
 			break;
 		default:
 			break;

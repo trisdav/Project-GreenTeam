@@ -6,33 +6,29 @@ import javax.swing.tree.*;
 
 /**
  * 
- * @author Tristan Davis
- * edited by Lydia McGovern
+ * @author Lydia McGovern and Tristan Davis
  */
 public class DropDownMenu extends JPanel {
-	private JTree theTree;
-	private TreeModel theModel;
+	private JTree menuTree;
+	private TreeModel menuModel;
 	private DefaultMutableTreeNode root = new DefaultMutableTreeNode("Users");
-	private View gui;
+	private View GUI;
 	private String composer;
-	private DefaultMutableTreeNode tempComposerNode;
-	private DefaultMutableTreeNode tempRecipientNode;
-	
+	private DefaultMutableTreeNode tempNode;
+
 /**
  * Constructor for the dropdown menu without dimensions
  * @param v the View object that contains this panel
  */
 	DropDownMenu(View v)
 	{
-		theModel = new DefaultTreeModel(root);
-//		theModel.addTreeModelListener(new TreeModelListener);
-		theTree = new JTree(theModel);
-		theTree.setEditable(true);
-		this.add(theTree);
-		gui = v;
+		menuModel = new DefaultTreeModel(root);
+		menuTree = new JTree(menuModel);
+		menuTree.setEditable(true);
+		this.add(menuTree);
+		GUI = v;
 		composer = null;
-		tempComposerNode = null;
-		tempRecipientNode = null;
+		tempNode = null;
 		testSet();
 	}
 	
@@ -43,14 +39,13 @@ public class DropDownMenu extends JPanel {
  */
 	DropDownMenu(View v, Dimension d)
 	{
-		theModel = new DefaultTreeModel(root);
-		theTree = new JTree(theModel);
-		theTree.setPreferredSize(d);
-		this.add(theTree);
-		gui = v;
+		menuModel = new DefaultTreeModel(root);
+		menuTree = new JTree(menuModel);
+		menuTree.setPreferredSize(d);
+		this.add(menuTree);
+		GUI = v;
 		composer = null;
-		tempComposerNode = null;
-		tempRecipientNode = null;
+		tempNode = null;
 		testSet();
 	}
 	
@@ -62,8 +57,7 @@ public class DropDownMenu extends JPanel {
 		newUserNode.add(localNode);
 		newUserNode.add(remoteNode);
 		root.add(newUserNode);
-		((DefaultTreeModel) theModel).reload(root);
-
+		((DefaultTreeModel) menuModel).reload(root);
 	}
 	
 /**
@@ -72,8 +66,7 @@ public class DropDownMenu extends JPanel {
  */
 	public void addAccount(String accountName) {
 // Only add the account if the selected node is a site
-    	DefaultMutableTreeNode siteNode = (DefaultMutableTreeNode) theTree.getLastSelectedPathComponent();
-
+    	DefaultMutableTreeNode siteNode = (DefaultMutableTreeNode) menuTree.getLastSelectedPathComponent();
     	if(siteNode != null && getPathLength() == 3) {
 // Create an account node with three mail boxes
     		DefaultMutableTreeNode newAccountNode = new DefaultMutableTreeNode(accountName);
@@ -85,75 +78,59 @@ public class DropDownMenu extends JPanel {
     		newAccountNode.add(trash);
 // Add the account node to the site node and reload the tree
     		siteNode.add(newAccountNode);
-    		((DefaultTreeModel) theModel).reload(siteNode);
+    		((DefaultTreeModel) menuModel).reload(siteNode);
     	}		
 	}
 	
 /**
  * Adds an email node to a mailbox node
- * @param user
- * @param account
- * @param title
+ * @param account the account to receive the email
+ * @param title the title of the email
  * @param mailboxNumber 0 for inbox, 1 for sent, 2 for trash
  */
-	public void addEmail(/*String user,*/String account, String title, int mailboxNumber) {
-		System.out.println("addEmail has been called");	
+	public void addEmail(String account, String title, int mailboxNumber) {
 		DefaultMutableTreeNode newEmailNode = new DefaultMutableTreeNode(title);
-		findTreeNode(account);
-		if (tempComposerNode != null) {
-//		if (tempComposerNode != null) {
-//			TreeNode accountNode = (TreeNode) getTreePath(account);
-			System.out.println("Number of mailboxes: " + tempComposerNode);//accountNode.getChildCount());
-		TreeNode mailboxNode = ((TreeNode) tempComposerNode).getChildAt(mailboxNumber);//accountNode).getChildAt(mailboxNumber);
+		findAccountNode(account);
+		if (tempNode != null) {
+			TreeNode mailboxNode = ((TreeNode) tempNode).getChildAt(mailboxNumber);
 			((DefaultMutableTreeNode) mailboxNode).add(newEmailNode);
-			((DefaultTreeModel) theModel).reload(mailboxNode);
-//			TreeNode mailboxNode = tempComposerNode.getChildAt(mailboxNumber);
-//			((DefaultMutableTreeNode) mailboxNode).add(newEmailNode);
-//			((DefaultTreeModel) theModel).reload(mailboxNode);
-		}	
+			((DefaultTreeModel) menuModel).reload(mailboxNode);
+		}
+		tempNode = null;
 	}
 
-//	private DefaultMutableTreeNode getTreePath(String name) {
-	private void findTreeNode(String name) {
-		System.out.println("GetTreePath has been called");
+	private void findAccountNode(String name) {
 // Set up the path from the root
 		TreeNode rootNode = (TreeNode) root;
 		TreePath path = new TreePath(rootNode);
 		TreeNode parentNode = null;
 // Iterate through the users
-		System.out.println("Number of users: " + rootNode.getChildCount());
 		for (int i = 0; i < rootNode.getChildCount(); i++) {
 			TreeNode userNode = rootNode.getChildAt(i);
 			System.out.println((String) ((DefaultMutableTreeNode)userNode).getUserObject());
-// If the username doesn't match the argument, iterate through the sites
-			if (((String) ((DefaultMutableTreeNode)userNode).getUserObject()) != name) {
-//				TreeNode localSiteNode = userNode.getChildAt(0);
 // Iterate through the sites
 				for (int j = 0; j < 2; j++) {
 					TreeNode siteNode = userNode.getChildAt(j);
 // Iterate through the accounts
 					System.out.println("Number of Accounts: " + siteNode.getChildCount());
 					for (int k = 0; k < siteNode.getChildCount(); k++) {
-						System.out.println("Searching through the accounts");
 						TreeNode accountNode = siteNode.getChildAt(k);
 // If the account name matches the argument name, set as the account name node
-						if (((String) ((DefaultMutableTreeNode)accountNode).getUserObject()) == name) {
-//							path = path.pathByAddingChild(accountNode);
+						System.out.println(((String) ((DefaultMutableTreeNode)accountNode).getUserObject()));
+						if (((String) ((DefaultMutableTreeNode)accountNode).getUserObject()).equals(name)) {
 							parentNode = accountNode;
-							break;
 						}
-					}	
+						if (parentNode != null)
+							break;
+					}
+					if (parentNode != null)
+						break;
 				}
+				if (parentNode != null)
+					break;
 			}
-// If the username matches the argument name, set it as the parent node
-			else {
-				System.out.println("First else has been triggered");
-//				path = path.pathByAddingChild(userNode);
-				parentNode = userNode.getChildAt(i);
-			}
-		}
-//		return (DefaultMutableTreeNode) parentNode;
-		tempComposerNode = (DefaultMutableTreeNode) parentNode;
+		if (parentNode != null)
+			tempNode = (DefaultMutableTreeNode) parentNode;
 	}
 /**
  * Deletes a User from the Dropdown menu
@@ -188,7 +165,7 @@ public class DropDownMenu extends JPanel {
  */
 	public String getSelection()
 	{	
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode) theTree.getLastSelectedPathComponent();		
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) menuTree.getLastSelectedPathComponent();		
 		if (node != null) {		
 			return ((String) node.getUserObject());
 		}
@@ -200,8 +177,8 @@ public class DropDownMenu extends JPanel {
  * Deletes a node from the tree
  */
 	private void deleteNode() {
-		DefaultTreeModel model = (DefaultTreeModel) (theTree.getModel());
-		TreePath[] paths = theTree.getSelectionPaths();
+		DefaultTreeModel model = (DefaultTreeModel) (menuTree.getModel());
+		TreePath[] paths = menuTree.getSelectionPaths();
 		for (TreePath path : paths) {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
 			if (node.getParent() != null)
@@ -214,8 +191,8 @@ public class DropDownMenu extends JPanel {
  * @return the path length of the selected node
  */
 	public int getPathLength() {
-		if (theTree.getSelectionPath().getPath() != null)
-			return theTree.getSelectionPath().getPath().length;
+		if (menuTree.getSelectionPath().getPath() != null)
+			return menuTree.getSelectionPath().getPath().length;
 		else
 			return 0;
 	}
@@ -224,11 +201,12 @@ public class DropDownMenu extends JPanel {
  * Initialize some users with accounts for testing purposes
  */
 	public void testSet() {
-		addUser("John Lennon");
-		addUser("George Harrison");
-		addUser("Paul McCartney");
-		addUser("Ringo Starr");
-		
+// Create 4 test users
+		addUser("John");
+		addUser("George");
+		addUser("Paul");
+		addUser("Ringo");
+// Create an account for one of the users		
 		DefaultMutableTreeNode localLennon = new DefaultMutableTreeNode("lennon.local");
 		DefaultMutableTreeNode lennonInbox = new DefaultMutableTreeNode("Inbox");
 		DefaultMutableTreeNode lennonSent = new DefaultMutableTreeNode("Sent");
@@ -238,9 +216,8 @@ public class DropDownMenu extends JPanel {
 		localLennon.add(lennonTrash);
 		TreeNode johnNode = root.getChildAt(0);
 		johnNode = johnNode.getChildAt(0);
-		((DefaultMutableTreeNode) johnNode).add(localLennon);
-		
-		
+		((DefaultMutableTreeNode) johnNode).add(localLennon);	
+// Create an account for one of the users		
 		DefaultMutableTreeNode remoteStarr = new DefaultMutableTreeNode("starr.remote");
 		DefaultMutableTreeNode starrInbox = new DefaultMutableTreeNode("Inbox");
 		DefaultMutableTreeNode starrSent = new DefaultMutableTreeNode("Sent");
@@ -252,20 +229,20 @@ public class DropDownMenu extends JPanel {
 		ringoNode = ringoNode.getChildAt(1);
 		((DefaultMutableTreeNode) ringoNode).add(remoteStarr);
 	}
-	
+
+/**
+ * set the composer of the email
+ * @param emailComposer the composer of the email
+ */
 	public void setComposer(String emailComposer) {
 		composer = emailComposer;
 	}
 	
+/**
+ * Return the email composer
+ * @return the composer of the email
+ */
 	public String getComposer() {
 		return composer;
-	}
-	
-	public void setTempComposerNode() {
-		tempComposerNode = (DefaultMutableTreeNode) theTree.getLastSelectedPathComponent();
-	}
-	
-	public void setTempRecipientNode(String recipient) {
-//		String recipient = eb.getRecipient();
 	}
 }
