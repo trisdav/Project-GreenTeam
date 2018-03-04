@@ -22,72 +22,133 @@ public class View implements ActionListener {
  * Constructs a GUI for the Simple Email System with four functional blocks
  * @param c the controller for the MVC application
  */
-	View(Controller c) {
+	View() {
+		
+	}
+	
+	public void run(Controller c) {
 		control = c;
-//		GridLayout layout = new GridLayout();//create the layout
+// Set up the frame
 		BorderLayout layout = new BorderLayout(); // LM
-		//Create the frame
 		JFrame mainFrame = new JFrame();
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setSize(800, 615);
 		mainFrame.setLayout(layout);
-		JPanel temp = new JPanel();
-		//Create a preferred dimension for ddm
+//Create a preferred dimension for ddm
 		Dimension ddmDim = new Dimension( 200,550 );
-		ddm = new DropDownMenu(ddmDim);
+// Initialize the four functional blocks
+		ddm = new DropDownMenu(this, ddmDim);
 		bb = new ButtonBlock(this);
 		ua = new UserAndAccountControl(this); // LM
-		eb = new EmailBlock();
-		temp.add(bb, BorderLayout.NORTH);
-		temp.add(eb, BorderLayout.CENTER);
-		mainFrame.add(ddm, layout.WEST); // LM
-//		mainFrame.add(bb, BorderLayout.EAST); // LM
-		mainFrame.add(ua, layout.NORTH); // LM
-//		mainFrame.add(eb, BorderLayout.CENTER);
-		mainFrame.add(temp, BorderLayout.CENTER);
+		eb = new EmailBlock(this);
+// Create a sub panel that contains the email and button blocks
+		JPanel subBlock = new JPanel();
+		subBlock.add(bb, BorderLayout.NORTH);
+		subBlock.add(eb, BorderLayout.CENTER);
+// Add the panels to the frame
+		mainFrame.add(ddm, layout.WEST);
+		mainFrame.add(ua, layout.NORTH);
+		mainFrame.add(subBlock, layout.CENTER);
+// Set the visibility
 		eb.hideComponents();
 		mainFrame.setVisible(true);		
 	}
-	@Override
-// Currently covers the actions of the button block and the UnA control
+	
+/**
+ * The actions for the four functional blocks are named and passed to the controller
+ */
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-//		System.out.println(e.getActionCommand());
 		switch (e.getActionCommand()) {
 		case "Add User":
-			String newUsername = JOptionPane.showInputDialog("Enter the username: ");
-			ddm.addUser(newUsername);
+			control.assumeControl("ADD_USER");
 			break;
 		case "Delete User":
-		    if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete <username>?",
-		    		"Confirm Delete", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
-		    	break;
-		    }
+			control.assumeControl("DELETE_USER");
 		    break;
 		case "Add Account":
-			String newAccountName = JOptionPane.showInputDialog("Enter the account name: ");
+			control.assumeControl("ADD_ACCOUNT");
 			break;
 		case "Delete Account":
-			 if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete <account name>?",
-			    		"Confirm Delete", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
-				 break;
-			 }
+			control.assumeControl("DELETE_ACCOUNT");
 			 break;
 		case "Compose":
-			eb.showComponents();
+			control.assumeControl("COMPOSE");
 			break;
 		case "Send":
-			eb.hideComponents();
+			control.assumeControl("SEND");
 			break;
 		case "Reply":
+			control.assumeControl("REPLY");
+//			break;
 		case "Trash":
+			control.assumeControl("TRASH");
+//			break;
 		default:
+			System.out.println("Default debugging break");
 			eb.hideComponents();
 			System.out.println(e.getActionCommand());
-			break;
-			
+			break;			
 		}
 		
 	}
+//*********************************************************************
+//*********************************************************************
 	
+// All the functions hereafter are for the controller to interact with
+// the four functional blocks through this GUI
+	
+//*********************************************************************
+//*********************************************************************
+	
+	public void addUser(String newUserName) {
+		ddm.addUser(newUserName);
+	}
+	
+	public String getSelection() {
+		return ddm.getSelection();
+	}
+	
+	public int getPathLength() {
+		return ddm.getPathLength();
+	}
+	
+	public void deleteUser() {
+		ddm.deleteUser();
+	}
+	
+	public void addAccount(String accountName) {
+		ddm.addAccount(accountName);
+	}
+	
+	public void deleteAccount() {
+		ddm.deleteAccount();
+	}
+	
+	public void showEmailView() {
+		eb.showComponents();
+	}
+	
+	public void setComposer(String composer) {
+		ddm.setComposer(composer);
+	}
+	
+	public String getComposer() {
+		return ddm.getComposer();
+	}
+	
+	public String getEmailTitle() {
+		return eb.getTitle();
+	}
+	
+	public String getEmailRecipient() {
+		return eb.getRecipient();
+	}
+	
+	public void addEmail(String recipient, String title, int mailboxNumber) {
+		ddm.addEmail(recipient, title, mailboxNumber);
+	}
+	
+	public void hideEmailView() {
+		eb.hideComponents();
+	}
 }

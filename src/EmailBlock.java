@@ -19,8 +19,10 @@ public class EmailBlock extends JPanel{
 	private JTextField titleField;
 	private JTextField recipientField;
 	private JTextPane emailPane;
+	private View gui; // LM
 	
-	EmailBlock() { 
+	EmailBlock(View v) { // LM
+		gui = v; // LM
 		Dimension blockSize = new Dimension(570, 250);
 		Dimension fieldSize;
 		titleField = new JTextField();
@@ -61,6 +63,7 @@ public class EmailBlock extends JPanel{
 	 * @return the title 
 	 */
 	public String getTitle() {
+		System.out.println("getTitle has been called");
 		return titleField.getText();
 	}
 	
@@ -69,6 +72,7 @@ public class EmailBlock extends JPanel{
 	 * @return the recipient
 	 */
 	public String getRecipient() {
+		System.out.println("getRecipient has been called");
 		return recipientField.getText();
 	}
 	
@@ -77,6 +81,7 @@ public class EmailBlock extends JPanel{
 	 * @return the email text
 	 */
 	public String getEmailText() {
+		System.out.println("getEmailText has been called");
 		return emailPane.getText();
 	}
 	

@@ -5,6 +5,10 @@
  */
 public class SimpleEmailSystem {
 	
+	SimpleEmailSystem() {
+		
+	}
+	
 	public boolean deleteUser() {
 		return true;
 	}
