@@ -86,6 +86,9 @@ public class View implements ActionListener {
 		case "Trash":
 			control.assumeControl("TRASH");
 			break;
+		case "emailSelected":
+			System.out.println(e.getActionCommand());
+			break;
 		default:
 			eb.hideComponents();
 			break;			

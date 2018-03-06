@@ -1,6 +1,9 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.text.Position;
 import javax.swing.tree.*;
 
@@ -15,6 +18,7 @@ public class DropDownMenu extends JPanel {
 	private View GUI;
 	private String composer;
 	private DefaultMutableTreeNode tempNode;
+	private TreeSelectionListener selection;
 
 /**
  * Constructor for the dropdown menu without dimensions
@@ -25,6 +29,8 @@ public class DropDownMenu extends JPanel {
 		menuModel = new DefaultTreeModel(root);
 		menuTree = new JTree(menuModel);
 		menuTree.setEditable(true);
+		//Create a tree selection listener
+		menuTree.addTreeSelectionListener(listener);
 		this.add(menuTree);
 		GUI = v;
 		composer = null;
@@ -41,7 +47,10 @@ public class DropDownMenu extends JPanel {
 	{
 		menuModel = new DefaultTreeModel(root);
 		menuTree = new JTree(menuModel);
+		menuTree.setEditable(true);
 		menuTree.setPreferredSize(d);
+		//Create a tree selection listener
+		menuTree.addTreeSelectionListener(listener);
 		this.add(menuTree);
 		GUI = v;
 		composer = null;
@@ -158,6 +167,19 @@ public class DropDownMenu extends JPanel {
 			deleteNode();
 	}
 	
+	/**
+	 * Deletes a node from the tree
+	 */
+	private void deleteNode() {
+		DefaultTreeModel model = (DefaultTreeModel) (menuTree.getModel());
+		TreePath[] paths = menuTree.getSelectionPaths();
+		for (TreePath path : paths) {
+				DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
+			if (node.getParent() != null)
+				model.removeNodeFromParent(node);
+		}
+	}
+	
 /**
  * This function will get the string representation of the currently selected node
  * in the jtree.
@@ -171,19 +193,6 @@ public class DropDownMenu extends JPanel {
 		}
 		else
 			return null;
-	}
-
-/**
- * Deletes a node from the tree
- */
-	private void deleteNode() {
-		DefaultTreeModel model = (DefaultTreeModel) (menuTree.getModel());
-		TreePath[] paths = menuTree.getSelectionPaths();
-		for (TreePath path : paths) {
-			DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
-			if (node.getParent() != null)
-				model.removeNodeFromParent(node);
-		}
 	}
 	
 /**
@@ -225,6 +234,13 @@ public class DropDownMenu extends JPanel {
 		remoteStarr.add(starrInbox);
 		remoteStarr.add(starrSent);
 		remoteStarr.add(starrTrash);
+//Create some emails
+		DefaultMutableTreeNode email1 = new DefaultMutableTreeNode("Hello world!");
+		DefaultMutableTreeNode email2 = new DefaultMutableTreeNode("I sent this.");
+		DefaultMutableTreeNode email3 = new DefaultMutableTreeNode("Ooops");
+		starrInbox.add(email1);
+		starrSent.add(email2);
+		starrTrash.add(email3);
 		TreeNode ringoNode = root.getChildAt(3);
 		ringoNode = ringoNode.getChildAt(1);
 		((DefaultMutableTreeNode) ringoNode).add(remoteStarr);
@@ -234,6 +250,7 @@ public class DropDownMenu extends JPanel {
  * set the composer of the email
  * @param emailComposer the composer of the email
  */
+	//I think there is a more elegant solution for this -T
 	public void setComposer(String emailComposer) {
 		composer = emailComposer;
 	}
@@ -245,4 +262,31 @@ public class DropDownMenu extends JPanel {
 	public String getComposer() {
 		return composer;
 	}
+	
+	/**
+	 * This will create a selection listener but send its event to GUI.
+	 * The source is the dropdownmenu.
+	 * The id of the code is 1.
+	 * The actionCommand is emailSelected.
+	 */
+	private TreeSelectionListener listener = (new TreeSelectionListener()
+			{
+
+				@Override
+				public void valueChanged(TreeSelectionEvent e) {
+					DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode)
+	                           menuTree.getLastSelectedPathComponent();
+					String actionCommand = (String) selectedNode.getUserObject();
+					DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) selectedNode.getParent();
+					String key = (String) parentNode.getUserObject();
+					//System.out.println(key);
+					if(key == "Inbox" || key == "Sent" || key == "Trash")
+					{
+						ActionEvent event = new ActionEvent(this, 1, "emailSelected" );
+						GUI.actionPerformed(event);
+					}
+				}
+		
+			});
+	
 }
