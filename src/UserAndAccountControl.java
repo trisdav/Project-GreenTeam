@@ -4,7 +4,7 @@ import javax.swing.*;
  * @author Lydia McGovern
  *
  */
-public class UserAndAccountControl extends JPanel {
+public class UserAndAccountControl extends JMenuBar {
 // The Menu variables
 	private JMenuBar menu;
 	private JMenu usersMenu;

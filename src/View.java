@@ -50,7 +50,7 @@ public class View implements ActionListener {
 		subBlock.add(eb, BorderLayout.CENTER);
 // Add the panels to the frame
 		mainFrame.add(ddm, layout.WEST);
-		mainFrame.add(ua, layout.NORTH);
+		mainFrame.setJMenuBar(ua);
 		mainFrame.add(subBlock, layout.CENTER);
 // Set the visibility
 		eb.hideComponents();
