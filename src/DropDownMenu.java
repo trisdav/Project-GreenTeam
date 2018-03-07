@@ -276,14 +276,17 @@ public class DropDownMenu extends JPanel {
 				public void valueChanged(TreeSelectionEvent e) {
 					DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode)
 	                           menuTree.getLastSelectedPathComponent();
-					String actionCommand = (String) selectedNode.getUserObject();
-					DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) selectedNode.getParent();
-					String key = (String) parentNode.getUserObject();
-					//System.out.println(key);
-					if(key == "Inbox" || key == "Sent" || key == "Trash")
+					if(selectedNode != null)
 					{
-						ActionEvent event = new ActionEvent(this, 1, "emailSelected" );
-						GUI.actionPerformed(event);
+						String actionCommand = (String) selectedNode.getUserObject();
+						DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) selectedNode.getParent();
+						String key = (String) parentNode.getUserObject();
+						//System.out.println(key);
+						if(key == "Inbox" || key == "Sent" || key == "Trash")
+						{
+							ActionEvent event = new ActionEvent(this, 1, "emailSelected" );
+							GUI.actionPerformed(event);
+						}
 					}
 				}
 		
