@@ -29,16 +29,13 @@ public class Account {
  * @return true if the email is added
  */
 	public boolean addEmail(Email e, int box) {
-		if (box == 0) {
-			inbox.addEmail(e);
-			return true;
-		} else if (box == 1) {
-			sent.addEmail(e);
-			return true;
-		} else if (box == 2) {
-			trash.addEmail(e);
-			return true;
-		} else		
+		if (box == 0)
+			return (inbox.addEmail(e));
+		else if (box == 1)
+			return (sent.addEmail(e));
+		else if (box == 2)
+			return (trash.addEmail(e));
+		else		
 			return false;
 	}
 	
@@ -48,20 +45,21 @@ public class Account {
  * @param the email box to remove the email from; 0 for inbox, 1 for sent, 2 for trash
  * @return true if the email is removed
  */
-	public boolean removeEmail(Timestamp time, int box) {
+	public boolean removeEmail(String box, String title) {
 // If the email is in the inbox or sent box, move the email to the trash box before deleting
 // Else if the email is in the trash box, permanently delete
-		if (box == 0) {
-			trash.addEmail(inbox.getEmail(time));
-			inbox.removeEmail(time);
-			return true;
-		} else if (box == 1) {
-			trash.addEmail(inbox.getEmail(time));
-			sent.removeEmail(time);
-			return true;
-		} else if (box == 2) {
-			trash.removeEmail(time);
-			return true;
+		if (box.equals("inbox")) {
+			if (trash.addEmail(inbox.getEmail(title)))
+				return (inbox.removeEmail(title));
+			else
+				return false;
+		} else if (box.equals("sent")) {
+			if (trash.addEmail(inbox.getEmail(title)))
+				return (sent.removeEmail(title));
+			else
+				return false;
+		} else if (box.equals("trash")) {
+			return (trash.removeEmail(title));
 		} else		
 			return false;
 	}

@@ -92,25 +92,54 @@ public class Controller {
 			break;
 		case "SEND":
 // Only send an email if the form is up
+			System.out.println("Controller: 95");
 			if (GUI.isComposeFormVisible()) {
 // Get the email components
-				String title = GUI.getEmailTitle();
-				String message = GUI.getEmailMessage();
-				String recipient = GUI.getEmailRecipient();
-				String sender = GUI.getComposer();
+				System.out.println("Controller: 98");
+				String title = GUI.getEmailTitle().trim();
+				System.out.println(title);
+				String message = GUI.getEmailMessage().trim();
+				System.out.println(message);
+				String recipient = GUI.getEmailRecipient().trim();
+				System.out.println(recipient);
+				String sender = GUI.getComposer().trim();
+				System.out.println(sender);
 // Update the Data Structure with the new email
 				if (simpleEmailSystem.sendEmail(title, message, sender, recipient) == true) {
 // Update the GUI with the new email
+					System.out.println("Controller: 106");
 					GUI.addEmail(recipient, title, 0);
 					GUI.addEmail(sender, title, 1);
-					GUI.hideEmailView();
-					GUI.resetEmailForm();
 				}
 			}
+			GUI.hideEmailView();
+			GUI.resetEmailForm();
 			break;
 		case "REPLY":
+// Ensure that an email has been selected and is visible
+			if (GUI.isReadFormVisible()) {
+// Set the composer and provide a clean email form for composing a new email
+				String rEmailComposer = GUI.getSelectedAccount();
+				GUI.setComposer(rEmailComposer);
+				GUI.composeEmailView();
+			}
 			break;
 		case "TRASH":
+// Ensure that an email is selected
+			if (GUI.getPathLength() == 6) {
+// Retrieve the data to trash the email
+				String user = GUI.getSelectedUser();
+				String site = GUI.getSelectedSite();
+				String account = GUI.getSelectedAccount();
+				String box = GUI.getSelectedBox();
+				String title = GUI.getSelectedTitle();
+// Trash the email in the email system and the GUI
+				if (simpleEmailSystem.trashEmail(user, site, account, box, title))
+					GUI.deleteEmail();
+// Place the email into the trash bin if it isn't already in the trash
+				if (!site.equals("trash"))
+					GUI.addEmail(account, title, 2);
+			}
 			break;
 		case "READ_EMAIL":
 // Get the components of the email

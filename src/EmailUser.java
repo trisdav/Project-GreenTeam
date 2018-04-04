@@ -101,4 +101,38 @@ public class EmailUser {
 			s.add(a.getAddress());
 		return s;
 	}
+
+/**
+ * Trash an email in the local site
+ * @param account the address the email is being deleted from
+ * @param box the email box that currently contains the email to be deleted
+ * @param title the email title
+ * @return true if the delete was successful
+ */
+	public boolean trashLocalEmail(String account, String box, String title) {
+		for (Account a : localSite) {
+			if (a.getAddress().equals(account)) {
+				if (a.removeEmail(box, title))
+					return true;
+			}
+		}
+		return false;
+	}
+
+/**
+ * Trash an email in the remote site
+ * @param account the address the email is being deleted from
+ * @param box the email box that currently contains the email to be deleted
+ * @param title the email title
+ * @return true if the delete was successful
+ */
+	public boolean trashRemoteEmail(String account, String box, String title) {
+		for (Account a : remoteSite) {
+			if (a.getAddress().equals(account)) {
+				if (a.removeEmail(box, title))
+					return true;
+			}
+		}
+		return false;		
+	}
 }

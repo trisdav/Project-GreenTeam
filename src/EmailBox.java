@@ -31,9 +31,9 @@ public class EmailBox {
  * @param time the time the email was sent
  * @return true if the email is found and removed
  */
-	public boolean removeEmail(Timestamp time) {
+	public boolean removeEmail(String title) {
 		for (Email e : emailList) {
-			if (e.getSentTime() == time) {
+			if (e.getTitle() == title) {
 				emailList.remove(e);
 				return true;
 			}
@@ -54,9 +54,9 @@ public class EmailBox {
  * @param time the timestamp of the email
  * @return the email
  */
-	public Email getEmail(Timestamp time) {
+	public Email getEmail(String title) {
 		for (int i = 0; i < emailList.size(); i++) {
-			if (emailList.get(i).getSentTime() == time) {
+			if (emailList.get(i).getTitle().equals(title)) {
 				return emailList.get(i);
 			}
 		}

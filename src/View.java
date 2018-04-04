@@ -222,11 +222,17 @@ public class View implements ActionListener {
 	}
 	
 /**
- * Returns the name of the user node that is selected or that is a parent of a selected node	
+ * Returns the name of the user node that is selected or that is the user ancestor of a selected node	
  * @return ******************
  */
 	public String getSelectedUser() {
-		return "";
+		int length = ddm.getPathLength();
+		if (length == 2)
+			return ddm.getSelection();
+		else if (length > 2 && length <= 6)
+			return (ddm.getNthAncestor(length - 2));
+		else
+			return null;
 	}
 	
 /**
@@ -234,7 +240,13 @@ public class View implements ActionListener {
  * @return *******************
  */
 	public String getSelectedSite() {
-		return "";
+		int length = ddm.getPathLength();
+		if (length == 3)
+			return ddm.getSelection();
+		else if (length > 3 && length <= 6)
+			return (ddm.getNthAncestor(length - 3));
+		else
+			return null;
 	}
 	
 /**
@@ -242,7 +254,13 @@ public class View implements ActionListener {
  * @return ********************
  */
 	public String getSelectedAccount() {
-		return "";
+		int length = ddm.getPathLength();
+		if (length == 4)
+			return ddm.getSelection();
+		else if (length > 4 && length <= 6)
+			return (ddm.getNthAncestor(length - 4));
+		else
+			return null;
 	}
 	
 /**
@@ -250,7 +268,13 @@ public class View implements ActionListener {
  * @return ********************
  */
 	public String getSelectedBox() {
-		return "";
+		int length = ddm.getPathLength();
+		if (length == 5)
+			return ddm.getSelection();
+		else if (length > 5 && length <= 6)
+			return (ddm.getNthAncestor(length - 5));
+		else
+			return null;
 	}
 	
 /**
@@ -258,7 +282,10 @@ public class View implements ActionListener {
  * @return ************************
  */
 	public String getSelectedTitle() {
-		return "";
+		if (ddm.getPathLength() == 6)
+			return ddm.getSelection();
+		else
+			return null;
 	}
 	
 /**
@@ -272,8 +299,27 @@ public class View implements ActionListener {
 		eb.readEmailForm(sender, recipient, title, message);
 	}
 	
+/**
+ * Return whether the form for composing emails is visible
+ * @return true if the compose form is visible
+ */
 	public boolean isComposeFormVisible() {
 		return eb.isComposeFormVisible();
+	}
+	
+/**
+ * Return whether the form for reading emails is visible
+ * @return true if the read-email form is visible
+ */
+	public boolean isReadFormVisible() {
+		return eb.isReadFormVisible();
+	}
+	
+/**
+ * Delete an email from the dropdown menu
+ */
+	public void deleteEmail() {
+		ddm.deleteEmail();
 	}
 	
 }

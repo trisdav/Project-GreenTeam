@@ -12,6 +12,20 @@ public class Model {
  */
 	Model() {
 		userList = new ArrayList<EmailUser>();
+		if (addUser("John")) {
+			System.out.println("John Lennon added");			
+			if (addAccount("John", "local", "lennon.local"))
+				System.out.println("lennon.local added");
+		}
+		if (addUser("George"))
+			System.out.println("George Harrison added");
+		if (addUser("Paul"))
+			System.out.println("Paul McCartney added");
+		if (addUser("Ringo")) {
+			System.out.println("Ringo Starr added");
+			if (addAccount("Ringo", "remote", "starr.remote")) 
+				System.out.println("starr.remote added");
+		}
 	}
 	
 /**
@@ -58,27 +72,37 @@ public class Model {
  * @return
  */
 	public boolean addAccount(String user, String site, String account) {
-		boolean isAvailable = true;
+// Check that the account name isn't already taken
 		for (EmailUser u : userList) {
-			if (u.getName().equals(user)) {
-				isAvailable = false;
+			ArrayList<String> localAccounts = u.getLocalSiteNames();
+			ArrayList<String> remoteAccounts = u.getRemoteSiteName();
+// Check the local and remote accounts
+			for (String a : localAccounts) {
+				if (a.equals(account))
+					return false;
+			}
+			for (String a : remoteAccounts) {
+				if (a.equals(account))
+					return false;
+			}
+		}
+// Add the account to the appropriate user and site
+		for (EmailUser u : userList) {
+			if (!(u.getName().equals(user)))
+				continue;
+			else {
+				if (site.equals("local")) {
+					u.addLocalAccount(account);
+					return true;
+			}
+				else if (site.equals("remote")) {
+					u.addRemoteAccount(account);
+					return true;
+				}
 				break;
 			}
 		}
-		if (isAvailable) {
-			for (EmailUser u : userList) {
-				if (!(u.getName().equals(user)))
-					continue;
-				else {
-					if (site.equals("local"))
-						u.addLocalAccount(account);
-					else
-						u.addRemoteAccount(account);
-					break;
-				}
-			}
-		}
-		return isAvailable;
+		return false;
 	}
 
 /**
@@ -127,8 +151,9 @@ public class Model {
 			for (Account a : r.localSite) {
 // Send the email if the account is found, and update sent flag
 				if (a.getAddress().equals(recipient)) {
-					a.addEmail(e, 0);
-					sent = true;
+					if (a.addEmail(e, 0))
+						sent = true;
+					System.out.println("Model:132");
 					break;
 				}				
 			}
@@ -136,8 +161,9 @@ public class Model {
 			if (!sent) {
 				for (Account a : r.remoteSite) {
 					if (a.getAddress().equals(recipient)) {
-						a.addEmail(e, 0);
-						sent = true;
+						if (a.addEmail(e, 0))
+							sent = true;
+						System.out.println("Model:142");
 						break;
 					}
 				}
@@ -150,8 +176,9 @@ public class Model {
 					for (Account a : s.localSite) {
 // Send the email if the account is found, and update sent flag
 						if (a.getAddress().equals(sender)) {
-							a.addEmail(e, 1);
-							sent2 = true;
+							if (a.addEmail(e, 1))
+								sent2 = true;
+							System.out.println("Model: 157");
 							break;
 						}				
 					}
@@ -159,8 +186,9 @@ public class Model {
 					if (!sent2) {
 						for (Account a : s.remoteSite) {
 							if (a.getAddress().equals(sender)) {
-								a.addEmail(e, 0);
-								sent2 = true;
+								if (a.addEmail(e, 0))
+									sent2 = true;
+								System.out.println("Model: 167");
 								break;
 							}
 						}
@@ -175,6 +203,28 @@ public class Model {
 		}
 // Verify whether the email was sent		
 		return sent;
+	}
+	
+/**
+ * Move the selected email to the trash bin; if the email is already in the trash bin, permanently delete it	
+ * @param user the user who possesses the email
+ * @param site the site that contains the email
+ * @param account the account that contains the email
+ * @param box the box that currently contains the email
+ * @param title the email title
+ * @return true if the delete was successful
+ */
+	public boolean trashEmail(String user, String site, String account, String box, String title) {
+		for (EmailUser u : userList) {
+			if (u.getName().equals(user)) {
+				if (site.equals("local"))
+					return (u.trashLocalEmail(account, box, title));
+				if (site.equals("remote")) {
+					return (u.trashRemoteEmail(account, box, title));				
+				}
+			}
+		}
+		return false;
 	}
 	
 /**
