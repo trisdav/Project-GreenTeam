@@ -121,7 +121,7 @@ public class View implements ActionListener {
 	}
 	
 /**
- * Returns the path length of the selected node
+ * Returns the path length of the selected node; root = 1, user = 2, site = 3, account = 4, email box = 5, email = 6
  * @return the path length of the selected node
  */
 	public int getPathLength() {
@@ -153,8 +153,8 @@ public class View implements ActionListener {
 /**
  * Display the email form in the GUI frame
  */
-	public void showEmailView() {
-		eb.showComponents();
+	public void composeEmailView() {
+		eb.composeEmailForm();
 	}
 	
 /**
@@ -174,7 +174,7 @@ public class View implements ActionListener {
 	}
 	
 /**
- * Return the email title
+ * Return the email title of a newly-created email
  * @return the email title
  */
 	public String getEmailTitle() {
@@ -182,7 +182,7 @@ public class View implements ActionListener {
 	}
 	
 /**
- * Return the account name of the email recipient
+ * Return the account name of the email recipient of a newly-created email
  * @return the account name of the email recipient
  */
 	public String getEmailRecipient() {
@@ -190,7 +190,7 @@ public class View implements ActionListener {
 	}
 	
 /**
- * Return the email message
+ * Return the email message of a newly-created email
  * @return the email message
  */
 	public String getEmailMessage() {
@@ -220,4 +220,60 @@ public class View implements ActionListener {
 	public void resetEmailForm() {
 		eb.resetEmailForm();
 	}
+	
+/**
+ * Returns the name of the user node that is selected or that is a parent of a selected node	
+ * @return ******************
+ */
+	public String getSelectedUser() {
+		return "";
+	}
+	
+/**
+ * Returns the name of the site node that is selected or that is a parent of a selected node	
+ * @return *******************
+ */
+	public String getSelectedSite() {
+		return "";
+	}
+	
+/**
+ * Returns the name of the account node that is selected or that is a parent of a selected node	
+ * @return ********************
+ */
+	public String getSelectedAccount() {
+		return "";
+	}
+	
+/**
+ * Returns the name of the box node that is selected or that is a parent of a selected node	
+ * @return ********************
+ */
+	public String getSelectedBox() {
+		return "";
+	}
+	
+/**
+ * Returns the name of the email title that is selected	
+ * @return ************************
+ */
+	public String getSelectedTitle() {
+		return "";
+	}
+	
+/**
+ * Renders the email form with the contents of an email
+ * @param sender the sender address of the email
+ * @param recipient the recipient address of the email
+ * @param title the title of the email
+ * @param message the email message
+ */
+	public void readEmail(String sender, String recipient, String title, String message) {
+		eb.readEmailForm(sender, recipient, title, message);
+	}
+	
+	public boolean isComposeFormVisible() {
+		return eb.isComposeFormVisible();
+	}
+	
 }

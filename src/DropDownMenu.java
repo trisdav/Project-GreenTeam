@@ -196,7 +196,7 @@ public class DropDownMenu extends JPanel {
 	}
 	
 /**
- * Returns the path length of the selected node
+ * Returns the path length of the selected node; root = 1, user = 2, site = 3, account = 4, email box = 5, email = 6
  * @return the path length of the selected node
  */
 	public int getPathLength() {
