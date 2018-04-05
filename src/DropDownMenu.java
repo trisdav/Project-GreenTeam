@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.text.Position;
 import javax.swing.tree.*;
 
 /**
@@ -18,7 +17,6 @@ public class DropDownMenu extends JPanel {
 	private View GUI;
 	private String composer;
 	private DefaultMutableTreeNode tempNode;
-	private TreeSelectionListener selection;
 
 /**
  * Constructor for the dropdown menu without dimensions
@@ -111,7 +109,6 @@ public class DropDownMenu extends JPanel {
 	private void findAccountNode(String name) {
 // Set up the path from the root
 		TreeNode rootNode = (TreeNode) root;
-		TreePath path = new TreePath(rootNode);
 		TreeNode parentNode = null;
 // Iterate through the users
 		for (int i = 0; i < rootNode.getChildCount(); i++) {
@@ -222,7 +219,10 @@ public class DropDownMenu extends JPanel {
  * @return the path length of the selected node
  */
 	public int getPathLength() {
-		if (menuTree.getSelectionPath().getPath() != null)
+		//If getSelectionPath is null the function call is essentially null.getPath()
+		//Also, getPath is not guaranteed to return null if it is an invalid path.
+		//if (menuTree.getSelectionPath().getPath() != null)
+		if(menuTree.getSelectionPath() != null)
 			return menuTree.getSelectionPath().getPath().length;
 		else
 			return 0;
