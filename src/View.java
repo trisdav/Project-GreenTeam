@@ -49,9 +49,9 @@ public class View implements ActionListener {
 		subBlock.add(bb, BorderLayout.NORTH);
 		subBlock.add(eb, BorderLayout.CENTER);
 // Add the panels to the frame
-		mainFrame.add(ddm, layout.WEST);
+		mainFrame.add(ddm, BorderLayout.WEST); //Static, was this done dynamically on purpose?
 		mainFrame.setJMenuBar(ua);
-		mainFrame.add(subBlock, layout.CENTER);
+		mainFrame.add(subBlock, BorderLayout.CENTER);
 // Set the visibility
 		eb.hideComponents();
 		mainFrame.setVisible(true);		
@@ -87,7 +87,7 @@ public class View implements ActionListener {
 			control.assumeControl("TRASH");
 			break;
 		case "emailSelected":
-			System.out.println(e.getActionCommand());
+			control.assumeControl("READ_EMAIL");
 			break;
 		default:
 			eb.hideComponents();

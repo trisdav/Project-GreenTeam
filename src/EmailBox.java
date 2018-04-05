@@ -1,5 +1,4 @@
 import java.util.*;
-import java.sql.Timestamp;
 /**
  * An email box with a list of emails
  * @author Lydia McGovern
@@ -43,7 +42,7 @@ public class EmailBox {
 	
 	public Email retrieveEmail(String title) {
 		for (Email e : emailList) {
-			if (e.getTitle() == title) 
+			if (e.getTitleNoStamp() == title) 
 				return e;
 		}
 		return null;
@@ -56,7 +55,7 @@ public class EmailBox {
  */
 	public Email getEmail(String title) {
 		for (int i = 0; i < emailList.size(); i++) {
-			if (emailList.get(i).getTitle().equals(title)) {
+			if (emailList.get(i).getTitleNoStamp().equals(title)) {
 				return emailList.get(i);
 			}
 		}

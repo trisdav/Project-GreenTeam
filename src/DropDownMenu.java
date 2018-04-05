@@ -198,20 +198,15 @@ public class DropDownMenu extends JPanel {
  * @return the ancestor of the leaf
  */
 	public String getNthAncestor(int n) {
-// Use recursion to find the requested ancestor
-		if (n >=1)
-			return getNthAncestor(n-1);
-		else {
-// Find and return the name of the ancestor node
-			DefaultMutableTreeNode leaf = (DefaultMutableTreeNode) menuTree.getLastSelectedPathComponent();
-			if (leaf != null) {
-				DefaultMutableTreeNode ancestor = (DefaultMutableTreeNode) leaf.getParent();
-				if (ancestor != null) {
-					return ((String) ancestor.getUserObject());
-				}
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) menuTree.getLastSelectedPathComponent();
+		for(int i = 0; i < n; i++)
+		{
+			if(node.getParent() != null)
+			{
+				node = (DefaultMutableTreeNode) node.getParent();
 			}
-			return null;
 		}
+		return (String) node.getUserObject();
 	}
 	
 /**

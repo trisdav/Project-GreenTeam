@@ -48,28 +48,28 @@ public class Account {
 	public boolean removeEmail(String box, String title) {
 // If the email is in the inbox or sent box, move the email to the trash box before deleting
 // Else if the email is in the trash box, permanently delete
-		if (box.equals("inbox")) {
+		if (box.equals("Inbox")) {
 			if (trash.addEmail(inbox.getEmail(title)))
 				return (inbox.removeEmail(title));
 			else
 				return false;
-		} else if (box.equals("sent")) {
+		} else if (box.equals("Sent")) {
 			if (trash.addEmail(inbox.getEmail(title)))
 				return (sent.removeEmail(title));
 			else
 				return false;
-		} else if (box.equals("trash")) {
+		} else if (box.equals("Trash")) {
 			return (trash.removeEmail(title));
 		} else		
 			return false;
 	}
 	
 	public Email retrieveEmail(String box, String title) {
-		if (box == "inbox")
+		if (box == "Inbox")
 			return inbox.retrieveEmail(title);
-		else if (box == "sent")
+		else if (box == "Sent")
 			return sent.retrieveEmail(title);
-		else if (box == "trash")
+		else if (box == "Trash")
 			return trash.retrieveEmail(title);
 		else
 			return null;

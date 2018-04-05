@@ -6,6 +6,7 @@ import java.sql.Timestamp;
  */
 public class Email {
 	private String title;
+	private String titleNoStamp;
 	private String message;
 	private String senderAddress;
 	private String recipientAddress;
@@ -20,6 +21,7 @@ public class Email {
  */
 	Email(String title, String message, String sender, String recipient) {
 		sentTime = new Timestamp(System.currentTimeMillis());
+		this.titleNoStamp = title;
 		this.title = sentTime.toString() + "\t" + title;
 		this.message = message;
 		this.senderAddress = sender;
@@ -33,6 +35,13 @@ public class Email {
  */
 	public String getTitle() {
 		return title;
+	}
+/**
+* Return the email title without timestamp
+* @return the email title without timestamp
+*/
+	public String getTitleNoStamp() {
+		return titleNoStamp;
 	}
 	
 /**

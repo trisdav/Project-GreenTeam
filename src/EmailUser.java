@@ -58,12 +58,12 @@ public class EmailUser {
 	}
 	
 	public Email retrieveEmail(String site, String account, String box, String title) {
-		if (site.equals("local")) {
+		if (site.equals("Local")) {
 			for (Account a : localSite) {
 				if (a.getAddress().equals(account))
 					return a.retrieveEmail(box, title);
 			}
-		} else if (site.equals("remote")) {
+		} else if (site.equals("Remote")) {
 			for (Account a : remoteSite) {
 				if (a.getAddress().equals(account))
 					return a.retrieveEmail(box, title);

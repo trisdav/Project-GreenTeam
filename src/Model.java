@@ -14,7 +14,7 @@ public class Model {
 		userList = new ArrayList<EmailUser>();
 		if (addUser("John")) {
 			System.out.println("John Lennon added");			
-			if (addAccount("John", "local", "lennon.local"))
+			if (addAccount("John", "Local", "lennon.local"))
 				System.out.println("lennon.local added");
 		}
 		if (addUser("George"))
@@ -23,7 +23,7 @@ public class Model {
 			System.out.println("Paul McCartney added");
 		if (addUser("Ringo")) {
 			System.out.println("Ringo Starr added");
-			if (addAccount("Ringo", "remote", "starr.remote")) 
+			if (addAccount("Ringo", "Remote", "starr.remote")) 
 				System.out.println("starr.remote added");
 		}
 	}
@@ -91,11 +91,11 @@ public class Model {
 			if (!(u.getName().equals(user)))
 				continue;
 			else {
-				if (site.equals("local")) {
+				if (site.equals("Local")) {
 					u.addLocalAccount(account);
 					return true;
 			}
-				else if (site.equals("remote")) {
+				else if (site.equals("Remote")) {
 					u.addRemoteAccount(account);
 					return true;
 				}
@@ -118,11 +118,11 @@ public class Model {
 		for (EmailUser u : userList) {
 // Delete the account from the appropriate site
 			if (u.getName().equals(user)) {
-				if (site.equals("local")) {
+				if (site.equals("Local")) {
 					u.deleteLocalAccount(account);
 					isDeleted = true;
 				}
-				else if (site.equals("remote")) {
+				else if (site.equals("Remote")) {
 					u.deleteRemoteAccount(account);
 					isDeleted = true;
 				}
@@ -217,9 +217,9 @@ public class Model {
 	public boolean trashEmail(String user, String site, String account, String box, String title) {
 		for (EmailUser u : userList) {
 			if (u.getName().equals(user)) {
-				if (site.equals("local"))
+				if (site.equals("Local"))
 					return (u.trashLocalEmail(account, box, title));
-				if (site.equals("remote")) {
+				if (site.equals("Remote")) {
 					return (u.trashRemoteEmail(account, box, title));				
 				}
 			}
