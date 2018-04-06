@@ -27,7 +27,7 @@ public class DropDownMenu extends JPanel {
 	{
 		menuModel = new DefaultTreeModel(root); //Create a model for the tree.
 		menuTree = new JTree(menuModel); //Create the tree
-		menuTree.setEditable(true);
+		menuTree.setEditable(false);
 		menuTree.addTreeSelectionListener(listener);
 		JScrollPane scrollPane = new JScrollPane(menuTree);
 		scrollPane.setPreferredSize(d);
