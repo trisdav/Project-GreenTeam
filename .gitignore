@@ -2,18 +2,5 @@
 <<<<<<< HEAD
 .metadata
 =======
-.metadata/.log
-.metadata/.mylyn/.tasks.xml.zip
-.metadata/.mylyn/tasks.xml.zip
-.metadata/.mylyn/tasks.xml.zip
-.metadata/.log
-.metadata/.mylyn/tasks.xml.zip
-.metadata/.log
-.metadata/.mylyn/tasks.xml.zip
-.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.egit.core.prefs
-.metadata/version.ini
-.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/server-config.json
 >>>>>>> master
-.metadata/.log
-src/EmailBlock.java
-src/EmailBlock.java
+.metadata/
