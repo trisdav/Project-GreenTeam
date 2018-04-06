@@ -32,7 +32,7 @@ public class EmailBox {
  */
 	public boolean removeEmail(String title) {
 		for (Email e : emailList) {
-			if (e.getTitle() == title) {
+			if (e.getTitle().equals(title)) {
 				emailList.remove(e);
 				return true;
 			}
@@ -41,8 +41,10 @@ public class EmailBox {
 	}
 	
 	public Email retrieveEmail(String title) {
+		if (emailList.isEmpty())
+			return null;
 		for (Email e : emailList) {
-			if (e.getTitleNoStamp() == title) 
+			if (e.getTitle().equals(title)) 
 				return e;
 		}
 		return null;
@@ -55,7 +57,7 @@ public class EmailBox {
  */
 	public Email getEmail(String title) {
 		for (int i = 0; i < emailList.size(); i++) {
-			if (emailList.get(i).getTitleNoStamp().equals(title)) {
+			if (emailList.get(i).getTitle().equals(title)) {
 				return emailList.get(i);
 			}
 		}
