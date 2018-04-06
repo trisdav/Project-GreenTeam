@@ -17,24 +17,6 @@ public class DropDownMenu extends JPanel {
 	private View GUI;
 	private String composer;
 	private DefaultMutableTreeNode tempNode;
-
-/**
- * Constructor for the dropdown menu without dimensions
- * @param v the View object that contains this panel
- */
-	DropDownMenu(View v)
-	{
-		menuModel = new DefaultTreeModel(root);
-		menuTree = new JTree(menuModel);
-		menuTree.setEditable(true);
-		//Create a tree selection listener
-		menuTree.addTreeSelectionListener(listener);
-		this.add(menuTree);
-		GUI = v;
-		composer = null;
-		tempNode = null;
-		testSet();
-	}
 	
 /**
  * Constructor for the dropdown menu with specified dimensions
@@ -43,13 +25,15 @@ public class DropDownMenu extends JPanel {
  */
 	DropDownMenu(View v, Dimension d)
 	{
-		menuModel = new DefaultTreeModel(root);
-		menuTree = new JTree(menuModel);
+		menuModel = new DefaultTreeModel(root); //Create a model for the tree.
+		menuTree = new JTree(menuModel); //Create the tree
 		menuTree.setEditable(true);
-		menuTree.setPreferredSize(d);
-		//Create a tree selection listener
 		menuTree.addTreeSelectionListener(listener);
-		this.add(menuTree);
+		JScrollPane scrollPane = new JScrollPane(menuTree);
+		scrollPane.setPreferredSize(d);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		this.add(scrollPane);
 		GUI = v;
 		composer = null;
 		tempNode = null;
@@ -252,15 +236,13 @@ public class DropDownMenu extends JPanel {
 		remoteStarr.add(starrSent);
 		remoteStarr.add(starrTrash);
 //Create some emails
-		DefaultMutableTreeNode email1 = new DefaultMutableTreeNode("Hello world!");
-		DefaultMutableTreeNode email2 = new DefaultMutableTreeNode("I sent this.");
-		DefaultMutableTreeNode email3 = new DefaultMutableTreeNode("Ooops");
-		starrInbox.add(email1);
-		starrSent.add(email2);
-		starrTrash.add(email3);
-		TreeNode ringoNode = root.getChildAt(3);
-		ringoNode = ringoNode.getChildAt(1);
-		((DefaultMutableTreeNode) ringoNode).add(remoteStarr);
+	Email e = new Email("Hello world!", "An email to myself.\n ~Lennon", "lennon.local", "lennon.local");
+		DefaultMutableTreeNode email1 = new DefaultMutableTreeNode(e);
+		DefaultMutableTreeNode email2 = new DefaultMutableTreeNode(e);
+
+		lennonInbox.add(email1);
+		lennonSent.add(email2);
+
 	}
 
 /**
@@ -309,5 +291,4 @@ public class DropDownMenu extends JPanel {
 				}
 		
 			});
-	
 }
