@@ -1,3 +1,4 @@
+import java.sql.Timestamp;
 import java.util.*;
 /**
  * The simple email system model
@@ -12,19 +13,13 @@ public class Model {
  */
 	Model() {
 		userList = new ArrayList<EmailUser>();
-		if (addUser("John")) {
-			System.out.println("John Lennon added");			
-			if (addAccount("John", "Local", "lennon.local"))
-				System.out.println("lennon.local added");
+		if (addUser("John")) {			
+			if (addAccount("John", "Local", "lennon.local"));
 		}
 		if (addUser("George"))
-			System.out.println("George Harrison added");
 		if (addUser("Paul"))
-			System.out.println("Paul McCartney added");
 		if (addUser("Ringo")) {
-			System.out.println("Ringo Starr added");
-			if (addAccount("Ringo", "Remote", "starr.remote")) 
-				System.out.println("starr.remote added");
+			if (addAccount("Ringo", "Remote", "starr.remote"));
 		}
 	}
 	
@@ -140,9 +135,10 @@ public class Model {
  * @param recipient the recipient address
  * @return true if the the email was successfully sent
  */
-	public boolean sendEmail(String title, String message, String sender, String recipient) {
+	public Timestamp sendEmail(String title, String message, String sender, String recipient) {
 		Email e = new Email(title, message, sender, recipient);
 		boolean sent = false;
+		Timestamp timeSent = e.getSentTime();
 		
 // Send the email to the recipient's inbox
 // Check all users
@@ -153,7 +149,6 @@ public class Model {
 				if (a.getAddress().equals(recipient)) {
 					if (a.addEmail(e, 0))
 						sent = true;
-					System.out.println("Model:132");
 					break;
 				}				
 			}
@@ -163,7 +158,6 @@ public class Model {
 					if (a.getAddress().equals(recipient)) {
 						if (a.addEmail(e, 0))
 							sent = true;
-						System.out.println("Model:142");
 						break;
 					}
 				}
@@ -178,7 +172,6 @@ public class Model {
 						if (a.getAddress().equals(sender)) {
 							if (a.addEmail(e, 1))
 								sent2 = true;
-							System.out.println("Model: 157");
 							break;
 						}				
 					}
@@ -188,7 +181,6 @@ public class Model {
 							if (a.getAddress().equals(sender)) {
 								if (a.addEmail(e, 0))
 									sent2 = true;
-								System.out.println("Model: 167");
 								break;
 							}
 						}
@@ -201,8 +193,10 @@ public class Model {
 				break;
 			}
 		}
-// Verify whether the email was sent		
-		return sent;
+// Verify whether the email was sent
+		if (sent)
+			return timeSent;
+		return null;
 	}
 	
 /**
@@ -238,7 +232,7 @@ public class Model {
  */
 	public Email retrieveEmail(String user, String site, String account, String box, String title) {
 		for (EmailUser u : userList) {
-			if (u.getName() == user) {
+			if (u.getName().equals(user)) {
 				return u.retrieveEmail(site, account, box, title);
 			}
 		}

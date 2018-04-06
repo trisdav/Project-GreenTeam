@@ -1,3 +1,5 @@
+import java.sql.Timestamp;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -77,7 +79,7 @@ public class Controller {
 					String user = GUI.getSelectedUser();
 					String site = GUI.getSelectedSite();
 					String account = GUI.getSelectedAccount();
-					if (simpleEmailSystem.deleteAccount(user, site, account))
+					if (simpleEmailSystem.deleteAccount(user, site, account + "." + site))
 						GUI.deleteAccount();
 				}
 			}
@@ -92,24 +94,19 @@ public class Controller {
 			break;
 		case "SEND":
 // Only send an email if the form is up
-			System.out.println("Controller: 95");
 			if (GUI.isComposeFormVisible()) {
 // Get the email components
-				System.out.println("Controller: 98");
 				String title = GUI.getEmailTitle().trim();
-				System.out.println(title);
 				String message = GUI.getEmailMessage().trim();
-				System.out.println(message);
 				String recipient = GUI.getEmailRecipient().trim();
-				System.out.println(recipient);
 				String sender = GUI.getComposer().trim();
-				System.out.println(sender);
 // Update the Data Structure with the new email
-				if (simpleEmailSystem.sendEmail(title, message, sender, recipient) == true) {
+				Timestamp t = simpleEmailSystem.sendEmail(title, message, sender, recipient);
+				if (t != null) {
 // Update the GUI with the new email
-					System.out.println("Controller: 106");
-					GUI.addEmail(recipient, title, 0);
-					GUI.addEmail(sender, title, 1);
+					String title2 = title + " " + t.toString();
+					GUI.addEmail(recipient, title2, 0);
+					GUI.addEmail(sender, title2, 1);
 				}
 			}
 			GUI.hideEmailView();
@@ -121,6 +118,7 @@ public class Controller {
 // Set the composer and provide a clean email form for composing a new email
 				String rEmailComposer = GUI.getSelectedAccount();
 				GUI.setComposer(rEmailComposer);
+				GUI.resetEmailForm();
 				GUI.composeEmailView();
 			}
 			break;
@@ -128,34 +126,41 @@ public class Controller {
 // Ensure that an email is selected
 			if (GUI.getPathLength() == 6) {
 // Retrieve the data to trash the email
-				String user = GUI.getSelectedUser();
-				String site = GUI.getSelectedSite();
-				String account = GUI.getSelectedAccount();
-				String box = GUI.getSelectedBox();
-				String title = GUI.getSelectedTitle();
+				String user = GUI.getSelectedUser().trim();
+				String site = GUI.getSelectedSite().trim();
+				String account = GUI.getSelectedAccount().trim();
+				String box = GUI.getSelectedBox().trim();
+				String title = GUI.getSelectedTitle().trim();
+				String title2 = title.substring(0, title.length() - 24);
 // Trash the email in the email system and the GUI
-				if (simpleEmailSystem.trashEmail(user, site, account, box, title))
+				if (simpleEmailSystem.trashEmail(user, site, account, box, title2))
 					GUI.deleteEmail();
 // Place the email into the trash bin if it isn't already in the trash
-				if (!site.equals("trash"))
+				if (!box.equals("Trash"))
 					GUI.addEmail(account, title, 2);
 			}
+			GUI.hideEmailView();
 			break;
 		case "READ_EMAIL":
 // Get the components of the email
-			String user = GUI.getSelectedUser();
-			String site = GUI.getSelectedSite();
-			String account = GUI.getSelectedAccount();
-			String box = GUI.getSelectedBox();
-			String title = GUI.getSelectedTitle();
+			String user = GUI.getSelectedUser().trim();
+			String site = GUI.getSelectedSite().trim();
+			String account = GUI.getSelectedAccount().trim();
+			String box = GUI.getSelectedBox().trim();
+			String title = GUI.getSelectedTitle().trim();
+			String title2 = (title.trim()).substring(0, title.length() - 24).trim();
 // Retrieve the email and disassemble
-			Email e = simpleEmailSystem.retrieveEmail(user, site, account, box, title);
-			String reSender = e.getSenderAddress();
-			String reRecipient = e.getRecipientAddress();
-			String reTitle = e.getTitle();
-			String reMessage = e.getMessage();
+			if (user != null && site != null && account != null && box != null && title2 != null) {
+				Email e = simpleEmailSystem.retrieveEmail(user, site, account, box, title2);
+				if (e != null) {
+					String reSender = e.getSenderAddress();
+					String reRecipient = e.getRecipientAddress();
+					String reTitle = e.getTitle();
+					String reMessage = e.getMessage();
 // Render the email
-			GUI.readEmail(reSender, reRecipient, reTitle, reMessage);			
+					GUI.readEmail(reSender, reRecipient, reTitle, reMessage);
+				}
+			}
 			break;
 		default:
 			break;

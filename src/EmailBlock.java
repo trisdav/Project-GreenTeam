@@ -152,7 +152,7 @@ public class EmailBlock extends JPanel{
  * @return true if the compose-email form is visible
  */
 	public boolean isComposeFormVisible() {
-		return (titleField.isVisible() && recipientField.isVisible() && emailPane.isVisible());
+		return (titleField.isVisible() && recipientField.isVisible() && emailPane.isVisible() && senderField.isVisible() == false);
 	}
 	
 /**
@@ -160,7 +160,7 @@ public class EmailBlock extends JPanel{
  * @return true if the read-email form is visible
  */
 	public boolean isReadFormVisible() {
-		return (isComposeFormVisible() && senderField.isVisible());
+		return (titleField.isVisible() && recipientField.isVisible() && emailPane.isVisible() && senderField.isVisible());
 	}
 
 }
