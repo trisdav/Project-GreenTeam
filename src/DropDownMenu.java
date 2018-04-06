@@ -37,7 +37,7 @@ public class DropDownMenu extends JPanel {
 		GUI = v;
 		composer = null;
 		tempNode = null;
-		testSet();
+		testSet(v);
 	}
 	
 	public void addUser(String userName)
@@ -210,7 +210,7 @@ public class DropDownMenu extends JPanel {
 /**
  * Initialize some users with accounts for testing purposes
  */
-	public void testSet() {
+	public void testSet(View v) {
 // Create 4 test users
 		addUser("John");
 		addUser("George");
@@ -235,14 +235,6 @@ public class DropDownMenu extends JPanel {
 		remoteStarr.add(starrInbox);
 		remoteStarr.add(starrSent);
 		remoteStarr.add(starrTrash);
-//Create some emails
-	Email e = new Email("Hello world!", "An email to myself.\n ~Lennon", "lennon.local", "lennon.local");
-		DefaultMutableTreeNode email1 = new DefaultMutableTreeNode(e);
-		DefaultMutableTreeNode email2 = new DefaultMutableTreeNode(e);
-
-		lennonInbox.add(email1);
-		lennonSent.add(email2);
-
 	}
 
 /**
