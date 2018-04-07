@@ -49,12 +49,12 @@ public class Account {
 // If the email is in the inbox or sent box, move the email to the trash box before deleting
 // Else if the email is in the trash box, permanently delete
 		if (box.equals("Inbox")) {
-			if (trash.addEmail(inbox.getEmail(title)))
+			if (trash.addEmail(inbox.retrieveEmail(title)))
 				return (inbox.removeEmail(title));
 			else
 				return false;
 		} else if (box.equals("Sent")) {
-			if (trash.addEmail(inbox.getEmail(title)))
+			if (trash.addEmail(sent.retrieveEmail(title)))
 				return (sent.removeEmail(title));
 			else
 				return false;
@@ -65,11 +65,11 @@ public class Account {
 	}
 	
 	public Email retrieveEmail(String box, String title) {
-		if (box == "Inbox")
+		if (box.equals("Inbox"))
 			return inbox.retrieveEmail(title);
-		else if (box == "Sent")
+		else if (box.equals("Sent"))
 			return sent.retrieveEmail(title);
-		else if (box == "Trash")
+		else if (box.equals("Trash"))
 			return trash.retrieveEmail(title);
 		else
 			return null;

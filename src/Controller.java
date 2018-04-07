@@ -131,13 +131,14 @@ public class Controller {
 				String account = GUI.getSelectedAccount().trim();
 				String box = GUI.getSelectedBox().trim();
 				String title = GUI.getSelectedTitle().trim();
-				String title2 = title.substring(0, title.length() - 24);
+	//			String title2 = title.substring(0, title.length() - 24);
 // Trash the email in the email system and the GUI
-				if (simpleEmailSystem.trashEmail(user, site, account, box, title2))
+				if (simpleEmailSystem.trashEmail(user, site, account, box, title)) {
 					GUI.deleteEmail();
 // Place the email into the trash bin if it isn't already in the trash
-				if (!box.equals("Trash"))
-					GUI.addEmail(account, title, 2);
+					if (!box.equals("Trash"))
+						GUI.addEmail(account, title, 2);
+				}
 			}
 			GUI.hideEmailView();
 			break;
@@ -148,10 +149,10 @@ public class Controller {
 			String account = GUI.getSelectedAccount().trim();
 			String box = GUI.getSelectedBox().trim();
 			String title = GUI.getSelectedTitle().trim();
-			String title2 = (title.trim()).substring(0, title.length() - 24).trim();
+	//		String title2 = (title.trim()).substring(0, title.length() - 24).trim();
 // Retrieve the email and disassemble
-			if (user != null && site != null && account != null && box != null && title2 != null) {
-				Email e = simpleEmailSystem.retrieveEmail(user, site, account, box, title2);
+			if (user != null && site != null && account != null && box != null && title != null) {
+				Email e = simpleEmailSystem.retrieveEmail(user, site, account, box, title);
 				if (e != null) {
 					String reSender = e.getSenderAddress();
 					String reRecipient = e.getRecipientAddress();

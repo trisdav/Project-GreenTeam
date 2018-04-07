@@ -32,7 +32,8 @@ public class EmailBox {
  */
 	public boolean removeEmail(String title) {
 		for (Email e : emailList) {
-			if (e.getTitle().equals(title)) {
+			String emailTitle = e.getTitle() + " " + e.getSentTime();
+			if (emailTitle.equals(title)) {
 				emailList.remove(e);
 				return true;
 			}
@@ -40,11 +41,17 @@ public class EmailBox {
 		return false;
 	}
 	
+/**
+ * Retrieve an email from the emailbox
+ * @param title the title of the email being searched for
+ * @return the email being searched for
+ */
 	public Email retrieveEmail(String title) {
 		if (emailList.isEmpty())
 			return null;
 		for (Email e : emailList) {
-			if (e.getTitle().equals(title)) 
+			String emailTitle = e.getTitle() + " " + e.getSentTime();
+			if (emailTitle.equals(title)) 
 				return e;
 		}
 		return null;

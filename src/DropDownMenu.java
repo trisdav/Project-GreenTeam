@@ -17,7 +17,25 @@ public class DropDownMenu extends JPanel {
 	private View GUI;
 	private String composer;
 	private DefaultMutableTreeNode tempNode;
-	
+
+/**
+ * Constructor for the dropdown menu without dimensions
+ * @param v the View object that contains this panel
+ */
+/**	DropDownMenu(View v)
+	{
+		menuModel = new DefaultTreeModel(root);
+		menuTree = new JTree(menuModel);
+		menuTree.setEditable(true);
+		//Create a tree selection listener
+		menuTree.addTreeSelectionListener(listener);
+		this.add(menuTree);
+		GUI = v;
+		composer = null;
+		tempNode = null;
+		testSet();
+	}
+*/	
 /**
  * Constructor for the dropdown menu with specified dimensions
  * @param v the View object that contains this panel
@@ -25,10 +43,13 @@ public class DropDownMenu extends JPanel {
  */
 	DropDownMenu(View v, Dimension d)
 	{
-		menuModel = new DefaultTreeModel(root); //Create a model for the tree.
-		menuTree = new JTree(menuModel); //Create the tree
-		menuTree.setEditable(false);
+		menuModel = new DefaultTreeModel(root);
+		menuTree = new JTree(menuModel);
+		menuTree.setEditable(true);
+//		menuTree.setPreferredSize(d);
+		//Create a tree selection listener
 		menuTree.addTreeSelectionListener(listener);
+//		this.add(menuTree);
 		JScrollPane scrollPane = new JScrollPane(menuTree);
 		scrollPane.setPreferredSize(d);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -37,7 +58,7 @@ public class DropDownMenu extends JPanel {
 		GUI = v;
 		composer = null;
 		tempNode = null;
-		testSet(v);
+		testSet();
 	}
 	
 	public void addUser(String userName)
@@ -97,16 +118,13 @@ public class DropDownMenu extends JPanel {
 // Iterate through the users
 		for (int i = 0; i < rootNode.getChildCount(); i++) {
 			TreeNode userNode = rootNode.getChildAt(i);
-			System.out.println((String) ((DefaultMutableTreeNode)userNode).getUserObject());
 // Iterate through the sites
 				for (int j = 0; j < 2; j++) {
 					TreeNode siteNode = userNode.getChildAt(j);
 // Iterate through the accounts
-					System.out.println("Number of Accounts: " + siteNode.getChildCount());
 					for (int k = 0; k < siteNode.getChildCount(); k++) {
 						TreeNode accountNode = siteNode.getChildAt(k);
 // If the account name matches the argument name, set as the account name node
-						System.out.println(((String) ((DefaultMutableTreeNode)accountNode).getUserObject()));
 						if (((String) ((DefaultMutableTreeNode)accountNode).getUserObject()).equals(name)) {
 							parentNode = accountNode;
 						}
@@ -210,7 +228,7 @@ public class DropDownMenu extends JPanel {
 /**
  * Initialize some users with accounts for testing purposes
  */
-	public void testSet(View v) {
+	public void testSet() {
 // Create 4 test users
 		addUser("John");
 		addUser("George");
@@ -235,6 +253,9 @@ public class DropDownMenu extends JPanel {
 		remoteStarr.add(starrInbox);
 		remoteStarr.add(starrSent);
 		remoteStarr.add(starrTrash);
+		TreeNode ringoNode = root.getChildAt(3);
+		ringoNode = ringoNode.getChildAt(1);
+		((DefaultMutableTreeNode) ringoNode).add(remoteStarr);
 	}
 
 /**
@@ -283,4 +304,5 @@ public class DropDownMenu extends JPanel {
 				}
 		
 			});
+	
 }
