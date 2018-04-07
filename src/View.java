@@ -43,7 +43,7 @@ public class View implements ActionListener {
 		ddm = new DropDownMenu(this, ddmDim);
 		bb = new ButtonBlock(this);
 		ua = new UserAndAccountControl(this);
-		eb = new EmailBlock(this);
+		eb = new EmailBlock();
 // Create a sub panel that contains the email and button blocks
 		JPanel subBlock = new JPanel();
 		subBlock.add(bb, BorderLayout.NORTH);
