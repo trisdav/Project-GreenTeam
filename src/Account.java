@@ -29,10 +29,12 @@ public class Account {
  * @return true if the email is added
  */
 	public boolean addEmail(Email e, int box) {
-		if (box == 0)
+		if (box == 0) {
 			return (inbox.addEmail(e));
-		else if (box == 1)
+		}
+		else if (box == 1) {
 			return (sent.addEmail(e));
+		}
 		else if (box == 2)
 			return (trash.addEmail(e));
 		else		

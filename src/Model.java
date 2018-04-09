@@ -181,7 +181,7 @@ public class Model {
 					if (!sent2) {
 						for (Account a : s.remoteSite) {
 							if (a.getAddress().equals(sender)) {
-								if (a.addEmail(e, 0))
+								if (a.addEmail(e, 1))
 									sent2 = true;
 								break;
 							}
