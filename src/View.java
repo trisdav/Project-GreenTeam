@@ -154,6 +154,10 @@ public class View implements ActionListener {
 		eb.composeEmailForm();
 	}
 	
+	public void replyEmailView(String title, String composer) {
+		eb.replyEmailForm(title, composer);
+	}
+	
 /**
  * Set the email composer
  * @param composer the email composer
@@ -168,6 +172,13 @@ public class View implements ActionListener {
  */
 	public String getComposer() {
 		return ddm.getComposer();
+	}
+	
+	/**
+	 * 
+	 */
+	public String getSender() {
+		return eb.getSender();
 	}
 	
 /**

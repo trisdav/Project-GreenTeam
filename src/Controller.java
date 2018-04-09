@@ -116,10 +116,13 @@ public class Controller {
 // Ensure that an email has been selected and is visible
 			if (GUI.isReadFormVisible()) {
 // Set the composer and provide a clean email form for composing a new email
-				String rEmailComposer = GUI.getSelectedAccount();
-				GUI.setComposer(rEmailComposer);
+				//String rEmailComposer = GUI.getSelectedAccount();
+				String sender = GUI.getSender();
+				String from   = GUI.getEmailRecipient();
+				String title  = "Re: " + GUI.getEmailTitle();
+				GUI.setComposer(from);
 				GUI.resetEmailForm();
-				GUI.composeEmailView();
+				GUI.replyEmailView(title, sender);
 			}
 			break;
 		case "TRASH":
