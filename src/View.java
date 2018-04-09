@@ -18,12 +18,9 @@ public class View implements ActionListener {
 	private EmailBlock eb;
 	
 /**
- * Constructs a GUI for the Simple Email System with four functional blocks
- * @param c the controller for the MVC application
+ * Constructor does nothing; the GUI is enabled when the run function is called
  */
-	View() {
-		
-	}
+	View() {}
 	
 /**
  * Runs the Simple Email System GUI with four functional blocks
@@ -223,7 +220,7 @@ public class View implements ActionListener {
 	
 /**
  * Returns the name of the user node that is selected or that is the user ancestor of a selected node	
- * @return ******************
+ * @return the name of the user that is selected, or the user that possesses a site, account, email box, or email that is selected
  */
 	public String getSelectedUser() {
 		int length = ddm.getPathLength();
@@ -237,7 +234,7 @@ public class View implements ActionListener {
 	
 /**
  * Returns the name of the site node that is selected or that is a parent of a selected node	
- * @return *******************
+ * @return the name of the site that is selected, or that possesses an account, email box, or email that is selected
  */
 	public String getSelectedSite() {
 		int length = ddm.getPathLength();
@@ -251,7 +248,7 @@ public class View implements ActionListener {
 	
 /**
  * Returns the name of the account node that is selected or that is a parent of a selected node	
- * @return ********************
+ * @return the name of the account that is selected, or that possesses an email box or email that is selected
  */
 	public String getSelectedAccount() {
 		int length = ddm.getPathLength();
@@ -265,7 +262,7 @@ public class View implements ActionListener {
 	
 /**
  * Returns the name of the box node that is selected or that is a parent of a selected node	
- * @return ********************
+ * @return the name of the email box that is selected or that possesses an email that is selected
  */
 	public String getSelectedBox() {
 		int length = ddm.getPathLength();

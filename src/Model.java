@@ -13,6 +13,8 @@ public class Model {
  */
 	Model() {
 		userList = new ArrayList<EmailUser>();
+		
+// These users are added for testing purposes only
 		if (addUser("John")) {			
 			if (addAccount("John", "Local", "lennon.local"));
 		}
@@ -133,7 +135,7 @@ public class Model {
  * @param message the email message
  * @param sender the sender address
  * @param recipient the recipient address
- * @return true if the the email was successfully sent
+ * @return the timestamp of the email if it was successfully sent, or null otherwise
  */
 	public Timestamp sendEmail(String title, String message, String sender, String recipient) {
 		Email e = new Email(title, message, sender, recipient);

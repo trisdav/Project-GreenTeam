@@ -5,6 +5,5 @@ public class Main {
 		Model simpleEmailSystem = new Model();
 		Controller ctrlr = new Controller(gui, simpleEmailSystem);
 		gui.run(ctrlr);
-//		Controller ctrlr = new Controller();
 	}
 }
