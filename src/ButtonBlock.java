@@ -4,7 +4,7 @@ import javax.swing.*;
 
 /**
  * This is a functional block that contains 4 buttons, "Send", "Reply", "Compose", and "Trash"
- * @author Tristan Davis and Lydia McGovern
+ * @author Tristan Davis
  *
  */
 public class ButtonBlock extends JPanel {

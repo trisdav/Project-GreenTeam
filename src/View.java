@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Skeleton class for View.java
  * 
- * @author Lydia McGovern and Tristan Davis
+ * @author Tristan Davis and Lydia McGovern
  */
 
 
@@ -30,7 +30,7 @@ public class View implements ActionListener {
 		control = c;
 // Set up the frame
 		BorderLayout layout = new BorderLayout();
-		JFrame mainFrame = new JFrame();
+		JFrame mainFrame = new JFrame("Simple Email");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setSize(800, 615);
 		mainFrame.setLayout(layout);
@@ -46,7 +46,7 @@ public class View implements ActionListener {
 		subBlock.add(bb, BorderLayout.NORTH);
 		subBlock.add(eb, BorderLayout.CENTER);
 // Add the panels to the frame
-		mainFrame.add(ddm, BorderLayout.WEST); //Static, was this done dynamically on purpose?
+		mainFrame.add(ddm, BorderLayout.WEST);
 		mainFrame.setJMenuBar(ua);
 		mainFrame.add(subBlock, BorderLayout.CENTER);
 // Set the visibility
@@ -154,12 +154,17 @@ public class View implements ActionListener {
 		eb.composeEmailForm();
 	}
 	
+/**
+ * Display the email form for replying to an email
+ * @param title the email title
+ * @param composer the email composer
+ */
 	public void replyEmailView(String title, String composer) {
 		eb.replyEmailForm(title, composer);
 	}
 	
 /**
- * Set the email composer
+ * Set the email composer in the dropdown menu
  * @param composer the email composer
  */
 	public void setComposer(String composer) {
@@ -167,16 +172,17 @@ public class View implements ActionListener {
 	}
 	
 /**
- * Return the email composer
+ * Return the email composer from the dropdown menu
  * @return the email composer
  */
 	public String getComposer() {
 		return ddm.getComposer();
 	}
 	
-	/**
-	 * 
-	 */
+/**
+ * Return the email sender from the email form
+ * @return the email sender
+ */
 	public String getSender() {
 		return eb.getSender();
 	}
@@ -287,7 +293,7 @@ public class View implements ActionListener {
 	
 /**
  * Returns the name of the email title that is selected	
- * @return ************************
+ * @return the email title that is selected
  */
 	public String getSelectedTitle() {
 		if (ddm.getPathLength() == 6)

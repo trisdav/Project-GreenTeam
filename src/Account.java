@@ -66,6 +66,12 @@ public class Account {
 			return false;
 	}
 	
+/**
+ * Return a selected email from one of the email boxes
+ * @param box the email box the email is currently in
+ * @param title the email title
+ * @return the selected email if found, null otherwise
+ */
 	public Email retrieveEmail(String box, String title) {
 		if (box.equals("Inbox"))
 			return inbox.retrieveEmail(title);

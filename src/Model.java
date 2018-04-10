@@ -66,7 +66,7 @@ public class Model {
  * @param user the user who owns the new account
  * @param site "local" or "remote" site the account is to be added to
  * @param account the new account name
- * @return
+ * @return true if the account was added
  */
 	public boolean addAccount(String user, String site, String account) {
 // Check that the account name isn't already taken
@@ -107,7 +107,7 @@ public class Model {
  * @param user the name of the user whose account is being deleted
  * @param site the site, "local" or "remote" the account is being deleted from
  * @param account the email address of the account to be deleted
- * @return
+ * @return true if the delete was successful
  */
 	public boolean deleteAccount(String user, String site, String account) {
 		boolean isDeleted = false;

@@ -8,7 +8,7 @@ import javax.swing.tree.*;
 
 /**
  * 
- * @author Lydia McGovern and Tristan Davis
+ * @author Tristan Davis and Lydia McGovern
  */
 public class DropDownMenu extends JPanel {
 	private JTree menuTree;
@@ -17,25 +17,7 @@ public class DropDownMenu extends JPanel {
 	private View GUI;
 	private String composer;
 	private DefaultMutableTreeNode tempNode;
-
-/**
- * Constructor for the dropdown menu without dimensions
- * @param v the View object that contains this panel
- */
-/**	DropDownMenu(View v)
-	{
-		menuModel = new DefaultTreeModel(root);
-		menuTree = new JTree(menuModel);
-		menuTree.setEditable(true);
-		//Create a tree selection listener
-		menuTree.addTreeSelectionListener(listener);
-		this.add(menuTree);
-		GUI = v;
-		composer = null;
-		tempNode = null;
-		testSet();
-	}
-*/	
+	
 /**
  * Constructor for the dropdown menu with specified dimensions
  * @param v the View object that contains this panel
@@ -46,10 +28,8 @@ public class DropDownMenu extends JPanel {
 		menuModel = new DefaultTreeModel(root);
 		menuTree = new JTree(menuModel);
 		menuTree.setEditable(false);
-//		menuTree.setPreferredSize(d);
-		//Create a tree selection listener
+//Create a tree selection listener
 		menuTree.addTreeSelectionListener(listener);
-//		this.add(menuTree);
 		JScrollPane scrollPane = new JScrollPane(menuTree);
 		scrollPane.setPreferredSize(d);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -61,6 +41,10 @@ public class DropDownMenu extends JPanel {
 		testSet();
 	}
 	
+/**
+ * Add a user to the tree with two sites
+ * @param userName the name of the user to be added to the tree
+ */
 	public void addUser(String userName)
 	{
 		DefaultMutableTreeNode newUserNode = new DefaultMutableTreeNode(userName);
@@ -166,9 +150,9 @@ public class DropDownMenu extends JPanel {
 			deleteNode();
 	}
 	
-	/**
-	 * Deletes a node from the tree
-	 */
+/**
+ * Deletes a node from the tree
+ */
 	private void deleteNode() {
 		DefaultTreeModel model = (DefaultTreeModel) (menuTree.getModel());
 		TreePath[] paths = menuTree.getSelectionPaths();
@@ -197,10 +181,11 @@ public class DropDownMenu extends JPanel {
 /**
  * Return the ancestor of a leaf n generations up 
  * @param n the number of generations up the tree
- * @return the ancestor of the leaf
+ * @return the nth ancestor of the leaf
  */
 	public String getNthAncestor(int n) {
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) menuTree.getLastSelectedPathComponent();
+// Count up n generations
 		for(int i = 0; i < n; i++)
 		{
 			if(node.getParent() != null)
@@ -216,9 +201,8 @@ public class DropDownMenu extends JPanel {
  * @return the path length of the selected node
  */
 	public int getPathLength() {
-		//If getSelectionPath is null the function call is essentially null.getPath()
-		//Also, getPath is not guaranteed to return null if it is an invalid path.
-		//if (menuTree.getSelectionPath().getPath() != null)
+//If getSelectionPath is null the function call is essentially null.getPath()
+//Also, getPath is not guaranteed to return null if it is an invalid path.
 		if(menuTree.getSelectionPath() != null)
 			return menuTree.getSelectionPath().getPath().length;
 		else
@@ -275,12 +259,12 @@ public class DropDownMenu extends JPanel {
 		return composer;
 	}
 	
-	/**
-	 * This will create a selection listener but send its event to GUI.
-	 * The source is the dropdownmenu.
-	 * The id of the code is 1.
-	 * The actionCommand is emailSelected.
-	 */
+/**
+ * This will create a selection listener but send its event to GUI.
+ * The source is the dropdownmenu.
+ * The id of the code is 1.
+ * The actionCommand is emailSelected.
+ */
 	private TreeSelectionListener listener = (new TreeSelectionListener()
 			{
 

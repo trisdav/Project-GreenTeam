@@ -60,6 +60,7 @@ public class Controller {
 				if (newAccountName != null && newAccountName != "") {
 					String user = GUI.getSelectedUser();
 					String site = GUI.getSelectedSite();
+					newAccountName += "." + site.toLowerCase();
 // Add to the simple email system and the GUI
 					if (simpleEmailSystem.addAccount(user, site, newAccountName) == true);
 						GUI.addAccount(newAccountName);					
@@ -134,7 +135,6 @@ public class Controller {
 				String account = GUI.getSelectedAccount().trim();
 				String box = GUI.getSelectedBox().trim();
 				String title = GUI.getSelectedTitle().trim();
-	//			String title2 = title.substring(0, title.length() - 24);
 // Trash the email in the email system and the GUI
 				if (simpleEmailSystem.trashEmail(user, site, account, box, title)) {
 					GUI.deleteEmail();

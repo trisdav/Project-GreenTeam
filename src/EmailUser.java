@@ -57,6 +57,14 @@ public class EmailUser {
 		}
 	}
 	
+/**
+ * Return a selected email
+ * @param site the site that contains the email
+ * @param account the account that contains the email
+ * @param box the email box that contains the email
+ * @param title the title of the email
+ * @return the selected email
+ */
 	public Email retrieveEmail(String site, String account, String box, String title) {
 		if (site.equals("Local")) {
 			for (Account a : localSite) {
