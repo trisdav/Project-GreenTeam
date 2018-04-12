@@ -55,9 +55,9 @@ public class Controller {
 			if (GUI.getSelectedSite() != null && GUI.getPathLength() == 3) {
 // Prompt the user for the name
 				String newAccountName = JOptionPane.showInputDialog("Enter the account name: ");
-				newAccountName.trim();
 // Ensure an account name has been chosen
 				if (newAccountName != null && newAccountName != "") {
+					newAccountName.trim();
 					String user = GUI.getSelectedUser();
 					String site = GUI.getSelectedSite();
 					newAccountName += "." + site.toLowerCase();
