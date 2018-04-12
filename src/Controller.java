@@ -62,7 +62,7 @@ public class Controller {
 					String site = GUI.getSelectedSite();
 					newAccountName += "." + site.toLowerCase();
 // Add to the simple email system and the GUI
-					if (simpleEmailSystem.addAccount(user, site, newAccountName) == true);
+					if (simpleEmailSystem.addAccount(user, site, newAccountName) == true)
 						GUI.addAccount(newAccountName);					
 				}
 			}
