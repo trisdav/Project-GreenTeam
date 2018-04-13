@@ -33,7 +33,8 @@ public class Controller {
 			if (newUsername != null && simpleEmailSystem.addUser(newUsername))
 				GUI.addUser(newUsername);
 			else
-				JOptionPane.showMessageDialog(null, newUsername + " is already taken.", null, 0);
+				if(newUsername != null)
+					JOptionPane.showMessageDialog(null, newUsername + " is already taken.", null, 0);
 			break;
 		case "DELETE_USER":
 // Ensure a user has been selected
