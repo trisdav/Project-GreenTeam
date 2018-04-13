@@ -53,7 +53,7 @@ public class Controller {
 			break;
 		case "ADD_ACCOUNT":
 // Ensure a site has been selected
-			if (GUI.getSelectedSite() != null && GUI.getPathLength() == 3) {
+			if (GUI.getPathLength() == 3) {
 // Prompt the user for the name
 				String newAccountName = JOptionPane.showInputDialog("Enter the account name: ");
 // Ensure an account name has been chosen
