@@ -5,10 +5,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -94,7 +94,15 @@ public class View implements ActionListener {
 			control.assumeControl("COMPOSE");
 			break;
 		case "Send":
-			control.assumeControl("SEND");
+			if(eb.getTitle().compareTo("") != 0)
+			{
+				control.assumeControl("SEND");
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(mainFrame,"Email must have a title.\n Please add a title.", null, 0);
+			}
+			
 			break;
 		case "Reply":
 			control.assumeControl("REPLY");
