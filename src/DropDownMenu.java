@@ -1,10 +1,16 @@
-import java.awt.*;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 /**
  * 
@@ -31,6 +37,8 @@ public class DropDownMenu extends JPanel {
 //Create a tree selection listener
 		menuTree.addTreeSelectionListener(listener);
 		JScrollPane scrollPane = new JScrollPane(menuTree);
+//		this.setMinimumSize(d);
+	//	this.setPreferredSize(d);
 		scrollPane.setPreferredSize(d);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -38,7 +46,6 @@ public class DropDownMenu extends JPanel {
 		GUI = v;
 		composer = null;
 		tempNode = null;
-		testSet();
 	}
 	
 /**
@@ -207,39 +214,6 @@ public class DropDownMenu extends JPanel {
 			return menuTree.getSelectionPath().getPath().length;
 		else
 			return 0;
-	}
-	
-/**
- * Initialize some users with accounts for testing purposes
- */
-	public void testSet() {
-// Create 4 test users
-		addUser("John");
-		addUser("George");
-		addUser("Paul");
-		addUser("Ringo");
-// Create an account for one of the users		
-		DefaultMutableTreeNode localLennon = new DefaultMutableTreeNode("lennon.local");
-		DefaultMutableTreeNode lennonInbox = new DefaultMutableTreeNode("Inbox");
-		DefaultMutableTreeNode lennonSent = new DefaultMutableTreeNode("Sent");
-		DefaultMutableTreeNode lennonTrash = new DefaultMutableTreeNode("Trash");
-		localLennon.add(lennonInbox);
-		localLennon.add(lennonSent);
-		localLennon.add(lennonTrash);
-		TreeNode johnNode = root.getChildAt(0);
-		johnNode = johnNode.getChildAt(0);
-		((DefaultMutableTreeNode) johnNode).add(localLennon);	
-// Create an account for one of the users		
-		DefaultMutableTreeNode remoteStarr = new DefaultMutableTreeNode("starr.remote");
-		DefaultMutableTreeNode starrInbox = new DefaultMutableTreeNode("Inbox");
-		DefaultMutableTreeNode starrSent = new DefaultMutableTreeNode("Sent");
-		DefaultMutableTreeNode starrTrash = new DefaultMutableTreeNode("Trash");
-		remoteStarr.add(starrInbox);
-		remoteStarr.add(starrSent);
-		remoteStarr.add(starrTrash);
-		TreeNode ringoNode = root.getChildAt(3);
-		ringoNode = ringoNode.getChildAt(1);
-		((DefaultMutableTreeNode) ringoNode).add(remoteStarr);
 	}
 
 /**

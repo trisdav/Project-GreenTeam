@@ -1,5 +1,4 @@
 import java.sql.Timestamp;
-
 import javax.swing.JOptionPane;
 
 /**
@@ -33,6 +32,8 @@ public class Controller {
 // Add the user
 			if (newUsername != null && simpleEmailSystem.addUser(newUsername))
 				GUI.addUser(newUsername);
+			else
+				JOptionPane.showMessageDialog(null, newUsername + " is already taken.", null, 0);
 			break;
 		case "DELETE_USER":
 // Ensure a user has been selected
@@ -42,7 +43,7 @@ public class Controller {
 		    		"Confirm Delete", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
 					break;
 				}
-				else {
+				else {;
 // Delete the selected user
 					String user = GUI.getSelectedUser();
 					if (simpleEmailSystem.deleteUser(user))
@@ -55,15 +56,16 @@ public class Controller {
 			if (GUI.getSelectedSite() != null && GUI.getPathLength() == 3) {
 // Prompt the user for the name
 				String newAccountName = JOptionPane.showInputDialog("Enter the account name: ");
+				newAccountName.trim();
 // Ensure an account name has been chosen
 				if (newAccountName != null && newAccountName != "") {
-					newAccountName.trim();
 					String user = GUI.getSelectedUser();
 					String site = GUI.getSelectedSite();
-					newAccountName += "." + site.toLowerCase();
 // Add to the simple email system and the GUI
 					if (simpleEmailSystem.addAccount(user, site, newAccountName) == true)
-						GUI.addAccount(newAccountName);					
+						GUI.addAccount(newAccountName);
+					else
+						JOptionPane.showMessageDialog(null, newAccountName + " is already taken.", null, 0);
 				}
 			}
 			break;

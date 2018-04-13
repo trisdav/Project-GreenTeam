@@ -1,6 +1,18 @@
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Skeleton class for View.java
@@ -16,6 +28,7 @@ public class View implements ActionListener {
 	private ButtonBlock bb;
 	private UserAndAccountControl ua;
 	private EmailBlock eb;
+	private JFrame mainFrame;
 	
 /**
  * Constructor does nothing; the GUI is enabled when the run function is called
@@ -30,21 +43,27 @@ public class View implements ActionListener {
 		control = c;
 // Set up the frame
 		BorderLayout layout = new BorderLayout();
-		JFrame mainFrame = new JFrame("Simple Email");
+		mainFrame = new JFrame("Simple Email");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setSize(800, 615);
-		mainFrame.setLayout(layout);
+	//	mainFrame.setLayout(layout);
+		int frameWidth = mainFrame.getWidth();
+		int frameHeight = mainFrame.getHeight();
 //Create a preferred dimension for ddm
-		Dimension ddmDim = new Dimension( 200,550 );
+		Dimension ddmDim = new Dimension(300, 800);
 // Initialize the four functional blocks
 		ddm = new DropDownMenu(this, ddmDim);
+		ddm.setLayout(new GridLayout(0, 1));
 		bb = new ButtonBlock(this);
 		ua = new UserAndAccountControl(this);
-		eb = new EmailBlock();
+		eb = new EmailBlock(frameWidth, frameHeight);
 // Create a sub panel that contains the email and button blocks
 		JPanel subBlock = new JPanel();
+		subBlock.setLayout(new BoxLayout(subBlock, BoxLayout.Y_AXIS));
+		bb.setMaximumSize(new Dimension(500, 50));
+		eb.setMaximumSize(new Dimension(750, 750));
 		subBlock.add(bb, BorderLayout.NORTH);
-		subBlock.add(eb, BorderLayout.CENTER);
+		subBlock.add(eb, BorderLayout.SOUTH);		
 // Add the panels to the frame
 		mainFrame.add(ddm, BorderLayout.WEST);
 		mainFrame.setJMenuBar(ua);
@@ -53,7 +72,7 @@ public class View implements ActionListener {
 		eb.hideComponents();
 		mainFrame.setVisible(true);		
 	}
-	
+
 /**
  * The actions for the four functional blocks are named and passed to the controller
  */
@@ -86,6 +105,26 @@ public class View implements ActionListener {
 		case "emailSelected":
 			control.assumeControl("READ_EMAIL");
 			break;
+		case "setLF":
+			JMenuItem temp = (JMenuItem) e.getSource();
+			try {
+		            // Set cross-platform Java L&F (also called "Metal")
+		       UIManager.setLookAndFeel(temp.getText());
+		       SwingUtilities.updateComponentTreeUI(mainFrame);
+			} 
+		    catch (UnsupportedLookAndFeelException e1) {
+		       // handle exception
+		    }
+		    catch (ClassNotFoundException e1) {
+		       // handle exception
+		    }
+		    catch (InstantiationException e1) {
+		       // handle exception
+		    }
+		    catch (IllegalAccessException e1) {
+		       // handle exception
+		    }
+		break;
 		default:
 			eb.hideComponents();
 			break;			

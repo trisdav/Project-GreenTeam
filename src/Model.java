@@ -1,5 +1,5 @@
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
 /**
  * The simple email system model
  * @author Lydia McGovern
@@ -13,16 +13,6 @@ public class Model {
  */
 	Model() {
 		userList = new ArrayList<EmailUser>();
-		
-// These users are added for testing purposes only
-		if (addUser("John")) {			
-			if (addAccount("John", "Local", "lennon.local"));
-		}
-		if (addUser("George"))
-		if (addUser("Paul"))
-		if (addUser("Ringo")) {
-			if (addAccount("Ringo", "Remote", "starr.remote"));
-		}
 	}
 	
 /**

@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 /**
  * An email user with two sites, each with zero to many accounts
  * @author Lydia McGovern
@@ -40,9 +40,9 @@ public class EmailUser {
  * @param address the address of the account to be deleted
  */
 	public void deleteLocalAccount(String address) {
-		for (Account a : localSite) {
-			if (a.getAddress().equals(address))
-				localSite.remove(a);
+		for (int i = 0; i < localSite.size(); i++) {
+			if (localSite.get(i).getAddress().equals(address))
+				localSite.remove(localSite.get(i));
 		}
 	}
 	
@@ -51,9 +51,9 @@ public class EmailUser {
  * @param address the address of the account to be deleted
  */
 	public void deleteRemoteAccount(String address) {
-		for (Account a : remoteSite) {
-			if (a.getAddress().equals(address))
-				remoteSite.remove(a);
+		for (int i = 0; i < remoteSite.size(); i++) {
+			if (remoteSite.get(i).getAddress().equals(address))
+				remoteSite.remove(remoteSite.get(i));
 		}
 	}
 	
@@ -66,7 +66,9 @@ public class EmailUser {
  * @return the selected email
  */
 	public Email retrieveEmail(String site, String account, String box, String title) {
-		if (site.equals("Local")) {
+		if (site == null || account == null || box == null || title == null)
+			return null;
+		else if (site.equals("Local")) {
 			for (Account a : localSite) {
 				if (a.getAddress().equals(account))
 					return a.retrieveEmail(box, title);

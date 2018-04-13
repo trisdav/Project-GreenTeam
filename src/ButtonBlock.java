@@ -1,6 +1,6 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  * This is a functional block that contains 4 buttons, "Send", "Reply", "Compose", and "Trash"
