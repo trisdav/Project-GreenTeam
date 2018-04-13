@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
  */
 public class EmailBlock extends JPanel
 {
-    private static final int WIDTH = 570;
+    private static final int WIDTH = 400;
     private static final int HEIGHT = 495;
     private JTextField titleField;
     private JTextField recipientField;
@@ -31,14 +31,15 @@ public class EmailBlock extends JPanel
     private JTextArea emailArea;
     private JScrollPane scrollPane;
 
-    EmailBlock()
+    EmailBlock(int width, int height)
     {
 	this.setLayout(new GridBagLayout());
 
 	this.addComponents();
 
 	this.resetEmailForm();
-	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+	this.setMaximumSize(new Dimension(width, height));
+//	this.setMaximumSize(new Dimension(500, 500));
 	this.setBorder(new EmptyBorder(10, 10, 10, 10));
     }
 

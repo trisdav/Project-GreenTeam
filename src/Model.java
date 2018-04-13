@@ -1,5 +1,5 @@
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
 /**
  * The simple email system model
  * @author Lydia McGovern

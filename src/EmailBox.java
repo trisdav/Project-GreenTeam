@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 /**
  * An email box with a list of emails
  * @author Lydia McGovern
@@ -27,15 +27,21 @@ public class EmailBox {
 	
 /**
  * Remove an email from the email box
- * @param time the time the email was sent
+ * @param title the title of the email concatenated with the time the email was sent
  * @return true if the email is found and removed
  */
 	public boolean removeEmail(String title) {
-		for (Email e : emailList) {
-			String emailTitle = e.getTitle() + " " + e.getSentTime();
-			if (emailTitle.equals(title)) {
-				emailList.remove(e);
-				return true;
+		if (title == null)
+			return false;
+		if (!emailList.isEmpty()) {
+			for (Email e : emailList) {
+				if (e.getTitle() != null && e.getSentTime() != null) {
+					String emailTitle = e.getTitle() + " " + e.getSentTime();
+					if (emailTitle.equals(title)) {
+						emailList.remove(e);
+						return true;
+					}
+				}
 			}
 		}
 		return false;
@@ -43,7 +49,7 @@ public class EmailBox {
 	
 /**
  * Retrieve an email from the emailbox
- * @param title the title of the email being searched for
+ * @param title the title of the email concatenated with the time the email was sent
  * @return the email being searched for
  */
 	public Email retrieveEmail(String title) {
@@ -56,19 +62,4 @@ public class EmailBox {
 		}
 		return null;
 	}
-	
-/**
- * Finds and returns an email by its timestamp
- * @param time the timestamp of the email
- * @return the email
- */
-	public Email getEmail(String title) {
-		for (int i = 0; i < emailList.size(); i++) {
-			if (emailList.get(i).getTitle().equals(title)) {
-				return emailList.get(i);
-			}
-		}
-		return null;
-	}
-
 }
