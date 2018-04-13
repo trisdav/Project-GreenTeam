@@ -1,1 +1,0 @@
-This is Green Team's class project for CS 321
