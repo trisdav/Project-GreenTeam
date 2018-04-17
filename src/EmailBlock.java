@@ -39,7 +39,6 @@ public class EmailBlock extends JPanel
 
 	this.resetEmailForm();
 	this.setMaximumSize(new Dimension(width, height));
-//	this.setMaximumSize(new Dimension(500, 500));
 	this.setBorder(new EmptyBorder(10, 10, 10, 10));
     }
 

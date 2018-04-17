@@ -35,8 +35,8 @@ public class EmailBox {
 			return false;
 		if (!emailList.isEmpty()) {
 			for (Email e : emailList) {
-				if (e.getTitle() != null && e.getSentTime() != null) {
-					String emailTitle = e.getTitle() + " " + e.getSentTime();
+				if (e.getTitleWithTimestamp() != null) {
+					String emailTitle = e.getTitleWithTimestamp();
 					if (emailTitle.equals(title)) {
 						emailList.remove(e);
 						return true;
@@ -49,15 +49,15 @@ public class EmailBox {
 	
 /**
  * Retrieve an email from the emailbox
- * @param title the title of the email concatenated with the time the email was sent
+ * @param titleWithTimestamp the title of the email concatenated with the time the email was sent
  * @return the email being searched for
  */
-	public Email retrieveEmail(String title) {
+	public Email retrieveEmail(String titleWithTimestamp) {
 		if (emailList.isEmpty())
 			return null;
 		for (Email e : emailList) {
-			String emailTitle = e.getTitle() + " " + e.getSentTime();
-			if (emailTitle.equals(title)) 
+			String emailTitle = e.getTitleWithTimestamp(); //e.getTitle() + " " + e.getSentTime();
+			if (emailTitle.equals(titleWithTimestamp)) 
 				return e;
 		}
 		return null;

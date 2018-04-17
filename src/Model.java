@@ -21,6 +21,8 @@ public class Model {
  * @return true if the user was successfully added
  */
 	public boolean addUser(String username) {
+		if (username == null)
+			return false;
 		boolean isAvailable = true;
 		for (EmailUser u : userList) {
 			if (u.getName().equals(username)) {
@@ -59,10 +61,12 @@ public class Model {
  * @return true if the account was added
  */
 	public boolean addAccount(String user, String site, String account) {
+		if (user == null || site == null || account == null)
+			return false;
 // Check that the account name isn't already taken
 		for (EmailUser u : userList) {
 			ArrayList<String> localAccounts = u.getLocalSiteNames();
-			ArrayList<String> remoteAccounts = u.getRemoteSiteName();
+			ArrayList<String> remoteAccounts = u.getRemoteSiteNames();
 // Check the local and remote accounts
 			for (String a : localAccounts) {
 				if (a.equals(account))
@@ -100,23 +104,20 @@ public class Model {
  * @return true if the delete was successful
  */
 	public boolean deleteAccount(String user, String site, String account) {
-		boolean isDeleted = false;
+		if (user == null || site == null || account == null)
+			return false;
 // Find the appropriate user
 		for (EmailUser u : userList) {
 // Delete the account from the appropriate site
 			if (u.getName().equals(user)) {
-				if (site.equals("Local")) {
-					u.deleteLocalAccount(account);
-					isDeleted = true;
-				}
-				else if (site.equals("Remote")) {
-					u.deleteRemoteAccount(account);
-					isDeleted = true;
-				}
+				if (site.equals("Local"))
+					return (u.deleteLocalAccount(account));
+				else if (site.equals("Remote"))
+					return(u.deleteRemoteAccount(account));
 				break;				
 			}
 		}
-		return isDeleted;
+		return false;
 	}
 	
 /**
@@ -128,6 +129,8 @@ public class Model {
  * @return the timestamp of the email if it was successfully sent, or null otherwise
  */
 	public Timestamp sendEmail(String title, String message, String sender, String recipient) {
+		if (message == null || sender == null || recipient == null)
+			return null;
 		Email e = new Email(title, message, sender, recipient);
 		boolean sent = false;
 		Timestamp timeSent = e.getSentTime();
@@ -197,16 +200,20 @@ public class Model {
  * @param site the site that contains the email
  * @param account the account that contains the email
  * @param box the box that currently contains the email
- * @param title the email title
+ * @param titleWithTimestamp the email title concatenated with the timestamp
  * @return true if the delete was successful
  */
-	public boolean trashEmail(String user, String site, String account, String box, String title) {
+	public boolean trashEmail(String user, String site, String account, String box, String titleWithTimestamp) {
+// The parameters cannot be null
+		if (user == null || site == null || account == null || box == null || titleWithTimestamp == null)
+			return false;
+// Find the user, then find the account, and trash the email
 		for (EmailUser u : userList) {
 			if (u.getName().equals(user)) {
 				if (site.equals("Local"))
-					return (u.trashLocalEmail(account, box, title));
+					return (u.trashLocalEmail(account, box, titleWithTimestamp));
 				if (site.equals("Remote")) {
-					return (u.trashRemoteEmail(account, box, title));				
+					return (u.trashRemoteEmail(account, box, titleWithTimestamp));				
 				}
 			}
 		}
@@ -219,13 +226,17 @@ public class Model {
  * @param site the name of the site that possesses the email
  * @param account the name of the account that possesses the email
  * @param box the name of the box that possesses the email
- * @param title the title of the email
+ * @param titleWithTimestamp the title of the email concatenated with the timestamp
  * @return the selected email
  */
-	public Email retrieveEmail(String user, String site, String account, String box, String title) {
+	public Email retrieveEmail(String user, String site, String account, String box, String titleWithTimestamp) {
+// The parameters cannot be null
+		if (user == null || site == null || account == null || box == null || titleWithTimestamp == null)
+			return null;
+// Find the user, then retrieve the email
 		for (EmailUser u : userList) {
 			if (u.getName().equals(user)) {
-				return u.retrieveEmail(site, account, box, title);
+				return u.retrieveEmail(site, account, box, titleWithTimestamp);
 			}
 		}
 		return null;

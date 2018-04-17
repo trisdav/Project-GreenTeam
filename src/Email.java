@@ -10,6 +10,7 @@ public class Email {
 	private String senderAddress;
 	private String recipientAddress;
 	private Timestamp sentTime;
+	private String titleWithTimestamp;
 	
 /**
  * Constructor class for the email
@@ -20,11 +21,17 @@ public class Email {
  */
 	Email(String title, String message, String sender, String recipient) {
 		sentTime = new Timestamp(System.currentTimeMillis());
-		this.title = title;
+// If there is no title, replace it with the timestamp
+		if (title == null) {
+			this.title = sentTime.toString();
+			this.titleWithTimestamp = " " + sentTime.toString();
+		} else {
+			this.title = title;
+			this.titleWithTimestamp = title + " " + sentTime;
+		}
 		this.message = message;
 		this.senderAddress = sender;
 		this.recipientAddress = recipient;
-
 	}
 
 /**
@@ -33,6 +40,14 @@ public class Email {
  */
 	public String getTitle() {
 		return title;
+	}
+	
+/**
+ * Return the title concatenated with the timestamp
+ * @return the title concatenated with the timestamp
+ */
+	public String getTitleWithTimestamp() {
+		return titleWithTimestamp;
 	}
 	
 /**

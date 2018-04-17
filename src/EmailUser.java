@@ -38,23 +38,35 @@ public class EmailUser {
 /**
  * Delete an account from the local site
  * @param address the address of the account to be deleted
+ * @return true if account is deleted
  */
-	public void deleteLocalAccount(String address) {
+	public boolean deleteLocalAccount(String address) {
+		if (address == null)
+			return false;
 		for (int i = 0; i < localSite.size(); i++) {
-			if (localSite.get(i).getAddress().equals(address))
+			if (localSite.get(i).getAddress().equals(address)) {
 				localSite.remove(localSite.get(i));
+				return true;
+			}
 		}
+		return false;
 	}
 	
 /**
  * Delete an account from the remote site	
  * @param address the address of the account to be deleted
+ * @return true if account is deleted
  */
-	public void deleteRemoteAccount(String address) {
+	public boolean deleteRemoteAccount(String address) {
+		if (address == null)
+			return false;
 		for (int i = 0; i < remoteSite.size(); i++) {
-			if (remoteSite.get(i).getAddress().equals(address))
+			if (remoteSite.get(i).getAddress().equals(address)) {
 				remoteSite.remove(remoteSite.get(i));
+				return true;
+			}
 		}
+		return false;
 	}
 	
 /**
@@ -105,7 +117,7 @@ public class EmailUser {
  * Return a list of all addresses stored in the remote site
  * @return a list of all addresses in the remote site
  */
-	public ArrayList<String> getRemoteSiteName() {
+	public ArrayList<String> getRemoteSiteNames() {
 		ArrayList<String> s = new ArrayList<String>();
 		for (Account a : remoteSite)
 			s.add(a.getAddress());
@@ -120,6 +132,8 @@ public class EmailUser {
  * @return true if the delete was successful
  */
 	public boolean trashLocalEmail(String account, String box, String title) {
+		if (account == null || box == null || title == null)
+			return false;
 		for (Account a : localSite) {
 			if (a.getAddress().equals(account)) {
 				if (a.removeEmail(box, title))
@@ -137,6 +151,8 @@ public class EmailUser {
  * @return true if the delete was successful
  */
 	public boolean trashRemoteEmail(String account, String box, String title) {
+		if (account == null || box == null || title == null)
+			return false;
 		for (Account a : remoteSite) {
 			if (a.getAddress().equals(account)) {
 				if (a.removeEmail(box, title))

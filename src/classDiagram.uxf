@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>686</x>
+      <y>21</y>
+      <w>147</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Controller
+--
+-simpleEmailSystem: Model
+-GUI: View
+
+--
++Controller
++assumeControl</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>784</x>
+      <y>182</y>
+      <w>168</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>View
+--
+-control: Controller
+-ddm: DropDownMenu
+-bb: ButtonBlock
+-ua: UserAndAccountControl
+-eb: EmailBlock
+-mainFrame: JFrame
+
+--
++run()
++actionPerformed()
++addUser()
++getSelection()
++getPathLength()
++deleteUser()
++addAccount(String)
++deleteAccount()
++composeEmailView()
++replyEmailView()
++setComposer()
++getComposer()
++getSender()
++getEmailTitle()
++getEmailRecipient()
++getEmailMessage()
++addEmail()
++hideEmailView()
++resetEmailForm()
++getSelectedUser()
++getSelectedSite()
++getSelectedAccount()
++getSelectedBox()
++getSelectedTitle()
++readEmail()
++isComposeFormVisible()
++isReadFormVisible()
++deleteEmail()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>581</x>
+      <y>252</y>
+      <w>147</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>Model
+--
+-userList: ArrayList&lt;EmailUser&gt;
+
+--
++addUser()
++deleteUser()
++addAccount()
++deleteAccount()
++sendEmail()
++trashEmail()
++retrieveEmail()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>574</x>
+      <y>413</y>
+      <w>147</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>EmailUser
+--
+-name: String
+-local: ArrayList&lt;Account&gt;
+-remote: ArrayList&lt;Account&gt;
+
+--
++addLocalAccount()
++addRemoteAccount()
++deleteLocalAccount()
++deleteRemoteAccount()
++retrieveEmail()
++getLocalSiteNames()
++getRemoteSiteNames()
++trashLocalEmail()
++trashRemoteEmail()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>707</x>
+      <y>119</y>
+      <w>21</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>791</x>
+      <y>119</y>
+      <w>21</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>805</x>
+      <y>119</y>
+      <w>21</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;..</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>924</x>
+      <y>686</y>
+      <w>119</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>ButtonBlock
+--
+-compose: JButton
+-trash: JButton
+-send: JButton
+-reply: JButton
+
+--
++setComposeVisibility()
++setSendVisibility()
++setReplyVisibility()
++setTrashVisibility()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>574</x>
+      <y>616</y>
+      <w>147</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>Account
+--
+-address: String
+-inbox: EmailBox
+-sent: EmailBox
+-trash: EmailBox
+
+--
++addEmail()
++removeEmail()
++retrieveEmail()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>385</x>
+      <y>546</y>
+      <w>147</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>EmailBox
+--
+-emailList: ArrayList&lt;Email&gt;
+
+--
++addEmail()
++removeEmail()
++retrieveEmail()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>399</x>
+      <y>385</y>
+      <w>133</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Email
+--
+-title: String
+-message: String
+-senderAddress: String
+-recipientAddress: String
+-sentTime: TimeStamp
+-titleWithTimestamp: String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>581</y>
+      <w>21</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>371</y>
+      <w>21</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>525</x>
+      <y>630</y>
+      <w>63</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>455</x>
+      <y>490</y>
+      <w>21</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>987</x>
+      <y>210</y>
+      <w>175</w>
+      <h>266</h>
+    </coordinates>
+    <panel_attributes>DropDownMenu
+--
+-menuTree: JTree
+-menuModel: TreeModel
+-root: DefaultMutableTreeNode
+-GUI: View
+-composer: String
+-tempNode: DefaultMutableTreeNode
+
+--
++addUser()
++addAccount()
++addEmail()
+-findAccountNode()
++deleteUser()
++deleteAccount()
++deleteEmail()
+-deleteNode()
++getSelection()
++getNthAncestor()
++getPathLength()
++setComposer()
++getComposer()
+-listener()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1106</x>
+      <y>490</y>
+      <w>133</w>
+      <h>343</h>
+    </coordinates>
+    <panel_attributes>EmailBlock
+--
+-WIDTH: int
+-HEIGHT: int
+-titleField: JTextField
+-recipientField: JTextField
+-senderField: JTextField
+-titleLabel: JLabel
+-toLabel: JLabel
+-fromLabel: JLabel
+-emailArea: JTextArea
+-scrollPane: JScrollPane
+
+--
++EmailBlock(View)
++getTitle()
++getRecipient()
++getSender()
++getEmailText()
++hideComponents()
++showComponents()
+-addItem()
++composeEmailForm()
++replyEmailForm()
++resetEmailForm()
++readEmailForm()
++isComposeFormVisible()
++isReadFormVisible()
+-setReadOnly()
+-removeComponents()
+-addComponents()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>742</x>
+      <y>644</y>
+      <w>168</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>UserAndAccountControl
+--
+-menu: JMenuBar
+-accountsMenu: JMenu
+-lfMenu: JMenu
+-usersMenu: JMenu
+-addAccount: JMenuItem
+-deleteAccount: JMenuItem
+-addUser: JMenuItem
+-deleteUser: JMenuItem
+-aLookAndFeel: List&lt;JMenuItem&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>945</x>
+      <y>567</y>
+      <w>175</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>924</x>
+      <y>595</y>
+      <w>21</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>805</x>
+      <y>595</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>945</x>
+      <y>378</y>
+      <w>56</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>994</x>
+      <y>616</y>
+      <w>70</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>JPanel</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>798</x>
+      <y>770</y>
+      <w>21</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1057</x>
+      <y>623</y>
+      <w>63</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1001</x>
+      <y>644</y>
+      <w>21</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1029</x>
+      <y>469</y>
+      <w>21</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>805</y>
+      <w>77</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>JMenuBar</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>945</x>
+      <y>399</y>
+      <w>56</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;..</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>826</x>
+      <y>595</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;..</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>938</x>
+      <y>595</y>
+      <w>21</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;..</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+</diagram>

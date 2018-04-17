@@ -1,10 +1,9 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -46,7 +45,6 @@ public class View implements ActionListener {
 		mainFrame = new JFrame("Simple Email");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setSize(800, 615);
-	//	mainFrame.setLayout(layout);
 		int frameWidth = mainFrame.getWidth();
 		int frameHeight = mainFrame.getHeight();
 //Create a preferred dimension for ddm
@@ -94,15 +92,11 @@ public class View implements ActionListener {
 			control.assumeControl("COMPOSE");
 			break;
 		case "Send":
-			if(eb.getTitle().compareTo("") != 0)
-			{
+			if (eb.getTitle().compareTo("") != 0)
 				control.assumeControl("SEND");
-			}
 			else
-			{
-				JOptionPane.showMessageDialog(mainFrame,"Email must have a title.\n Please add a title.", null, 0);
-			}
-			
+				if (isComposeFormVisible())
+					JOptionPane.showMessageDialog(mainFrame, "Email must have a title.\nPlease add a title.");
 			break;
 		case "Reply":
 			control.assumeControl("REPLY");

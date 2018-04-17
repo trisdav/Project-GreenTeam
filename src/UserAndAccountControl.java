@@ -18,7 +18,7 @@ public class UserAndAccountControl extends JMenuBar {
 	private JMenuItem deleteUser;
 	private JMenuItem addAccount;
 	private JMenuItem deleteAccount;
-	private List<JMenuItem> aLookandFeel = new Vector<JMenuItem>();
+	private List<JMenuItem> aLookAndFeel = new Vector<JMenuItem>();
 	
 /**
  * Constructor class to create the menu
@@ -49,9 +49,9 @@ public class UserAndAccountControl extends JMenuBar {
 		
 		UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
 		for (UIManager.LookAndFeelInfo look : looks) {
-			      aLookandFeel.add(new JMenuItem(look.getClassName()));
+			      aLookAndFeel.add(new JMenuItem(look.getClassName()));
 		}
-		for( JMenuItem item : aLookandFeel )
+		for( JMenuItem item : aLookAndFeel )
 		{
 			item.addActionListener(v);
 			item.setActionCommand("setLF");

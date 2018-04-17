@@ -32,13 +32,14 @@ public class Controller {
 // Add the user
 			if (newUsername != null && simpleEmailSystem.addUser(newUsername))
 				GUI.addUser(newUsername);
-			else
-				if(newUsername != null)
+			else {
+				if (newUsername != null)
 					JOptionPane.showMessageDialog(null, newUsername + " is already taken.", null, 0);
+			}
 			break;
 		case "DELETE_USER":
 // Ensure a user has been selected
-			if (GUI.getSelectedUser() != null && GUI.getPathLength() == 2) {
+			if (GUI.getPathLength() == 2) {
 // Confirm delete
 				if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + GUI.getSelection() + "?",
 		    		"Confirm Delete", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
@@ -59,7 +60,7 @@ public class Controller {
 				String newAccountName = JOptionPane.showInputDialog("Enter the account name: ");
 // Ensure an account name has been chosen
 				if (newAccountName != null && newAccountName != "") {
-					newAccountName.trim();
+					newAccountName.trim();					
 					String user = GUI.getSelectedUser();
 					String site = GUI.getSelectedSite();
 // Add to the simple email system and the GUI
@@ -72,7 +73,7 @@ public class Controller {
 			break;
 		case "DELETE_ACCOUNT":
 // Ensure an account is selected
-			if (GUI.getSelectedAccount() != null && GUI.getPathLength() == 4) {
+			if (GUI.getPathLength() == 4) {
 // Confirm delete
 				if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + GUI.getSelection() + "?",
 		    		"Confirm Delete", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
@@ -83,7 +84,7 @@ public class Controller {
 					String user = GUI.getSelectedUser();
 					String site = GUI.getSelectedSite();
 					String account = GUI.getSelectedAccount();
-					if (simpleEmailSystem.deleteAccount(user, site, account + "." + site))
+					if (simpleEmailSystem.deleteAccount(user, site, account))
 						GUI.deleteAccount();
 				}
 			}
@@ -100,7 +101,7 @@ public class Controller {
 // Only send an email if the form is up
 			if (GUI.isComposeFormVisible()) {
 // Get the email components
-				String title = GUI.getEmailTitle().trim();
+				String title = GUI.getEmailTitle();
 				String message = GUI.getEmailMessage().trim();
 				String recipient = GUI.getEmailRecipient().trim();
 				String sender = GUI.getComposer().trim();
@@ -120,7 +121,6 @@ public class Controller {
 // Ensure that an email has been selected and is visible
 			if (GUI.isReadFormVisible()) {
 // Set the composer and provide a clean email form for composing a new email
-				//String rEmailComposer = GUI.getSelectedAccount();
 				String sender = GUI.getSender();
 				String from   = GUI.getEmailRecipient();
 				String title  = "Re: " + GUI.getEmailTitle();
@@ -155,7 +155,6 @@ public class Controller {
 			String account = GUI.getSelectedAccount().trim();
 			String box = GUI.getSelectedBox().trim();
 			String title = GUI.getSelectedTitle().trim();
-	//		String title2 = (title.trim()).substring(0, title.length() - 24).trim();
 // Retrieve the email and disassemble
 			if (user != null && site != null && account != null && box != null && title != null) {
 				Email e = simpleEmailSystem.retrieveEmail(user, site, account, box, title);

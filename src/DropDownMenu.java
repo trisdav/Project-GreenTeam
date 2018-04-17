@@ -37,8 +37,6 @@ public class DropDownMenu extends JPanel {
 //Create a tree selection listener
 		menuTree.addTreeSelectionListener(listener);
 		JScrollPane scrollPane = new JScrollPane(menuTree);
-//		this.setMinimumSize(d);
-	//	this.setPreferredSize(d);
 		scrollPane.setPreferredSize(d);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -220,7 +218,6 @@ public class DropDownMenu extends JPanel {
  * set the composer of the email
  * @param emailComposer the composer of the email
  */
-	//I think there is a more elegant solution for this -T
 	public void setComposer(String emailComposer) {
 		composer = emailComposer;
 	}
